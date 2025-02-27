@@ -8,7 +8,7 @@ A user-friendly online platform for viewing and posting recipes effortlessly.
 
 1. VSCode
 2. Anaconda or Miniconda. Ensure you can run the `conda` command through your terminal.
-3. Git  
+3. Git
 
 ### Setup conda environment
 
