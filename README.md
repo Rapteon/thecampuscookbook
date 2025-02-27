@@ -128,7 +128,14 @@ button (shown in the image below).
 After selecting the branch, you'll see a banner like the following suggesting  
 you to create a new pull request:  
 ![create-pull-request-banner](./.readme-content/create-pull-request-banner.png)
-
+5. Click on **Compare and pull request** button:  
+![compare-and-pull-request-button](./.readme-content/compare-and-pull-request-button.png)  
+This will take you to a new page.
+6. Add a title for your pull request and describe your changes. See the image below:  
+![open-pull-request-page](./.readme-content/open-pull-request-page.png)  
+7. The following figure shows a pull request which can be easily merged (no conflicts).  
+Do note that you need approval from at least 1 reviewer before the code can be merged into the main branch.
+![created-pull-request-page](./.readme-content/created-pull-request-page.png)
 
 ## Pre-commit hooks
 
