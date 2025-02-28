@@ -14,19 +14,22 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.11]
-
     steps:
     - uses: actions/checkout@v4
     - uses: conda-incubator/setup-miniconda@v3.0.4
       with:
         # Environment.yml to create the environment.
         environment-file: environment.yml
+        activate-environment: cookbook
+    - name: Bash
+        shell: bash -el {0}
+        run: |
+          conda info
+          conda list
     - name: Check project
       run: |
           conda init --all
           conda activate cookbook
           cd thecampuscookbook
           python manage.py check
-    - name: Run Tests
-      run: |
-        python manage.py test
+          python manage.py test
