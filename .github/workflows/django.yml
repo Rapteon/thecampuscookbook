@@ -23,6 +23,7 @@ jobs:
         environment-file: environment.yml
     - name: Check project
       run: |
+          conda init --all
           conda activate cookbook
           cd thecampuscookbook
           python manage.py check
