@@ -1,0 +1,86 @@
+<nav class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Left: Brand -->
+    <div class="flex items-center space-x-4">
+      <a
+        href="/"
+        class="text-2xl font-bold text-green-600 tracking-wide hover:text-green-500 transition"
+      >
+        THE CAMPUS COOKBOOK
+      </a>
+    </div>
+
+    <!-- Middle: Navigation Links -->
+    <div class="hidden md:flex space-x-6">
+      <a
+        href="{% url 'home' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Home</a
+      >
+      <a
+        href="{% url 'category-starter' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Starter</a
+      >
+      <a
+        href="{% url 'category-soup' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Soup</a
+      >
+      <a
+        href="{% url 'category-main' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Main</a
+      >
+      <a
+        href="{% url 'category-dessert' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Dessert</a
+      >
+      <a
+        href="{% url 'category-creative' %}"
+        class="text-gray-600 hover:text-green-600 transition"
+        >Being Creative!</a
+      >
+    </div>
+
+    <!-- Right: Actions -->
+    <div class="flex items-center space-x-4">
+      <!-- Search -->
+      <div class="relative hidden lg:block">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="border border-gray-300 rounded-full py-1 px-3 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+        />
+        <svg
+          class="w-4 h-4 text-gray-400 absolute right-2 top-1/2 transform -translate-y-1/2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 16l-4.5 4.5M19 11a8 8 0 11-16 0 8 8 0 0116 0z"
+          />
+        </svg>
+      </div>
+
+      <!-- Login / Sign Up -->
+      <a
+        href="{% url 'login' %}"
+        ="text-gray-600 hover:text-green-600 transition"
+        >Login</a
+      >
+      <a
+        href="{% url 'register' %}"
+        class="bg-green-600 hover:bg-green-500 text-white px-3 py-1 rounded-full transition"
+      >
+        Sign Up
+      </a>
+    </div>
+  </div>
+</nav>

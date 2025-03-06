@@ -1,0 +1,98 @@
+{% extends 'account/base.html' %} {% load static %} {% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded shadow p-6 mt-8">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Account Settings</h2>
+
+  <!-- Avatar / Profile Picture Section -->
+  <div class="flex items-center mb-6">
+    <div
+      class="w-16 h-16 bg-gray-300 rounded-full mr-4 flex items-center justify-center"
+    >
+      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.24 12 2.24 7.12 4.42 7.12 7.12 9.3 12 12 12zm0 2.16c-2.9 0-8.64 1.46-8.64 4.37v1.31h17.28v-1.31c0-2.91-5.74-4.37-8.64-4.37z"
+        />
+      </svg>
+    </div>
+    <div>
+      <p class="text-gray-800 font-semibold">Change Avatar</p>
+      <!-- Button for uploading a new image -->
+      <button class="text-sm text-green-600 hover:underline">
+        Upload New Photo
+      </button>
+    </div>
+  </div>
+
+  <!-- Settings Form -->
+  <form method="POST" action="">
+    {% csrf_token %}
+    <!-- Username -->
+    <div class="mb-4">
+      <label for="username" class="block text-gray-700 font-medium mb-2">
+        Username
+      </label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-400"
+        placeholder="Your username"
+        value="{{ user.username|default_if_none:'' }}"
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 font-medium mb-2">
+        Email
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-400"
+        placeholder="you@example.com"
+        value="{{ user.email|default_if_none:'' }}"
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 font-medium mb-2">
+        Password
+      </label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-400"
+        placeholder="••••••••"
+      />
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-6">
+      <label
+        for="confirm_password"
+        class="block text-gray-700 font-medium mb-2"
+      >
+        Confirm Password
+      </label>
+      <input
+        type="password"
+        id="confirm_password"
+        name="confirm_password"
+        class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-400"
+        placeholder="••••••••"
+      />
+    </div>
+
+    <!-- Save Changes Button -->
+    <button
+      type="submit"
+      class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 transition"
+    >
+      Save Changes
+    </button>
+  </form>
+</div>
+{% endblock %}
