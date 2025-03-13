@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     recipe_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(USERS,on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     origin = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
