@@ -23,7 +23,7 @@ class Rating(models.Model):
     def __str__(self):
         return f"Rating by {self.user.user_name} on {self.recipe.title}"
 
-class SavedRecipes(models.Model):
+class SavedRecipe(models.Model):
     saved_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     recipe_id = models.ForeignKey(Recipe,on_delete=models.CASCADE)
