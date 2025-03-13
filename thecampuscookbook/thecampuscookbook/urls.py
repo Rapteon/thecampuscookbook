@@ -22,6 +22,9 @@ from login.views import index as login_index
 from register.views import index as register_index
 from category.urls import urlpatterns as category_urls
 from account.urls import urlpatterns as account_urls
+from django.conf.urls.static import static
+from thecampuscookbook import settings
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,3 +34,6 @@ urlpatterns = [
     path("category/", include(category_urls), name="category"),
     path("profile/", include(account_urls), name="account"),  # profile = account
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
