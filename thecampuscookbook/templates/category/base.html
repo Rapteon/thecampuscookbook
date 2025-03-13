@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+  <body class="bg-gray-50">
+    {% include 'global/navbar/navbar.html' %}
+
+    <!-- ========== HEADER / CATEGORY HERO ========== -->
+    <header class="bg-gray-180 w-full bg-cover bg-center px-8">
+      <!-- Right: Header Image Placeholder -->
+      <div class="w-full h-full object-cover">{% block image %} {% endblock %}</div>
+      <div
+        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between"
+      >
+        <!-- Left: Category Title & Description -->
+        <div class="flex-1 text-center md:text-center md:pl-10 space-y-4 py-4">
+          {% block title %} {% endblock %}
+          <p class="text-gray-700 mt-2">
+            {% block description %} {% endblock %}
+          </p>
+        </div>
+        <!-- Right: Header Image Placeholder -->
+       
+      </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+      <!-- Sort & Filter Row -->
+      <div
+        class="flex flex-col md:flex-row items-center justify-between mb-6 space-y-4 md:space-y-0"
+      >
+        <!-- Sort By -->
+        <div class="flex items-center space-x-2">
+          <label for="sort" class="text-gray-700 font-medium">Sort By:</label>
+          <select
+            id="sort"
+            name="sort"
+            class="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            <option value="name">Alphabetical</option>
+            <option value="rating">Most liked</option>
+            <option value="origin">Origin</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Category Items Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        {% block card %} {% endblock %}
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="mt-8 flex justify-center">
+        <nav class="inline-flex items-center space-x-1">
+          <a
+            href="#"
+            class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
+            >1</a
+          >
+          <a
+            href="#"
+            class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition"
+            >2</a
+          >
+          <a
+            href="#"
+            class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition"
+            >3</a
+          >
+          <!-- etc. -->
+        </nav>
+      </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    {% include 'global/footer/footer.html' %}
+  </body>
+</html>

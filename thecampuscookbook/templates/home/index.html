@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+  <body class="bg-gray-50 text-gray-800">
+    <!-- ========== NAVBAR ========== -->
+    {% include 'global/navbar/navbar.html' %}
+    <!-- ========== HEADER ========== -->
+    <header class="bg-gray-180 w-full bg-cover bg-center px-8">
+      <img
+            src="{% static 'images/home2.jpeg' %}"
+            alt="Header Image"
+            class="rounded-lg w-full h-full object-cover"
+          />
+      <div
+        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0"
+      >
+        <!-- Quick Intro Text -->
+
+        <div class="flex-1 text-center md:text-center md:pl-10 space-y-4 py-4">
+          <h1 class="text-3xl md:text-4xl font-bold text-green-700">
+            Welcome to The Campus Cookbook!
+          </h1>
+          <p class="text-gray-700">
+            Explore our best recipes for starters, soups, main courses, desserts, and
+            creative creations!
+          </p>
+        
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== CATEGORY SECTION ========== -->
+    <section class="bg-white py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <!-- Category Card -->
+          <a
+            href="{% url 'category-starter' %}"
+            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
+          >
+            <h2 class="font-semibold text-lg text-gray-100">Starter</h2>
+          </a>
+          <a
+            href="{% url 'category-soup' %}"
+            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
+          >
+            <h2 class="font-semibold text-lg text-gray-100">Soup</h2>
+          </a>
+          <a
+            href="{% url 'category-main' %}"
+            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
+          >
+            <h2 class="font-semibold text-lg text-gray-100">Main</h2>
+          </a>
+          <a
+            href="{% url 'category-dessert' %}"
+            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
+          >
+            <h2 class="font-semibold text-lg text-gray-100">Dessert</h2>
+          </a>
+          <a
+            href="{% url 'category-creative' %}"
+            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
+          >
+            <h2 class="font-semibold text-lg text-gray-100">Being Creative!</h2>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== ABOUT US ========== -->
+    <section class="bg-gray-100 py-12">
+      <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
+        <h2 class="text-2xl md:text-3xl font-bold text-green-700">About Us</h2>
+        <p class="text-gray-700 font-bold leading-relaxed">
+          Dear fellow students!
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          We invite you to a culinary journey of campus life.
+          The Campus Cookbook has been created to enable the posting and browsing of recipes of University
+          students who enjoy cooking and, despite the occasional limitations of campus life, can make
+          delicious, innovative or at least edible meals.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+          The site also welcomes students who barely left the comfort of home, have no idea what to do with a
+          room called "kitchen", and need some inspiration...Or students who have moments like I have a
+          deadline; it is the middle of the night, I have only 4 things in my fridge, now what to make?
+          <br>Does any of it sound familiar?
+          <br>If your answer is yes, this application is for you to utilise.
+          <br><b>"Enjoy”</b>, and remember, cooking is not only for survival but for fun, too!
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== FEED SECTION ========== -->
+    <section class="bg-white py-12">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2
+          class="text-2xl md:text-3xl font-bold text-green-700 text-center mb-8"
+        >
+          Latest Posts
+        </h2>
+
+        <div class="space-y-8">
+          <!-- Post Card -->
+          <div
+            class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start md:space-x-6"
+          >
+            <img
+              src="https://via.placeholder.com/150?text=Post+Image"
+              alt="Last Post Image"
+              class="w-32 h-32 rounded-md object-cover mb-4 md:mb-0"
+            />
+            <div class="flex-1 space-y-2">
+              <h3 class="text-xl font-semibold text-gray-800">
+                Delicious Veggie Pasta
+              </h3>
+              <p class="text-gray-700">
+                A colorful and healthy pasta recipe loaded with fresh
+                vegetables. Perfect for quick weeknight dinners.
+              </p>
+              <!-- Star Rating -->
+              <div class="flex space-x-1 text-yellow-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-gray-300 fill-current"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Another Post Card -->
+          {% comment %} will be rednered from the db {% endcomment %}
+          <div
+            class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start md:space-x-6"
+          >
+            <img
+              src="https://via.placeholder.com/150?text=Post+Image"
+              alt="Last Post Image"
+              class="w-32 h-32 rounded-md object-cover mb-4 md:mb-0"
+            />
+            <div class="flex-1 space-y-2">
+              <h3 class="text-xl font-semibold text-gray-800">
+                Triple Chocolate Cake
+              </h3>
+              <p class="text-gray-700">
+                Indulge in this rich, moist chocolate cake layered with decadent
+                frosting. A true showstopper for any event.
+              </p>
+              <!-- Star Rating -->
+              <div class="flex space-x-1 text-yellow-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    {% include 'global/footer/footer.html' %}
+  </body>
+</html>
