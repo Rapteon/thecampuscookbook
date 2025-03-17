@@ -41,6 +41,8 @@ CATEGORIES = [
     {"name": "Soup"},  # id = 1
     {"name": "Main"},  # id = 2
     {"name": "Dessert"},  # id = 3
+    {"name": "Starter"},  # id = 4
+    {"name": "Creative"},  # id = 5
 ]
 
 RECIPES = [
@@ -142,6 +144,31 @@ Season with salt and freshly ground black pepper. Serve hot.""",
         "preparation_time": "Less than 30 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
     },
+    {
+        # id = 8
+        "user_id": 2,
+        "title": "Grilled Vegetable Antipasti",
+        "origin": "Italy",
+        "category_id": 4,
+        "ingredients": "Green pepper, red pepper, yellow pepper, courgettes, aubergines, garlic, thyme, olive oil, sherry vinegar",
+        "description": """Put the peppers in a bowl with olive oil and seasoning. Heat a griddle pan over medium/high heat and cook the peppers in batches until soft and grill-marked, then transfer them to a covered bowl. Repeat with courgettes and aubergines, ensuring they are fully tender.
+Once all vegetables are cooked, add garlic, thyme, sherry vinegar, and more olive oil to each bowl. Allow to marinate for at least 1 hour at room temperature before serving, or refrigerate for up to 3 days. Bring to room temperature before serving.""",
+        "preparation_time": "30 minutes",
+        "average_rating": 4,  # Please add a record in Rating if updating this to non-zero
+    },
+    {
+        # id = 9
+        "user_id": 3,
+        "title": "Sweet and Spicy Turkey Sandwich",
+        "origin": "United States",
+        "category_id": 5,
+        "ingredients": "Hearty country bread, roasted turkey breast, pepperjack cheese, butter, strawberry preserves",
+        "description": """Heat a small skillet over medium heat. Butter one side of each bread slice with one teaspoon butter. Place one slice, butter side down, in the skillet. Top with turkey and cheese slices, then place the second slice of bread on top, butter side up.
+Cook until the first side is golden brown, then flip and brown the other side for 3-5 minutes per side, or until the cheese melts.
+Remove the sandwich to a plate and top with strawberry preserves, or serve the preserves on the side.""",
+        "preparation_time": "15 minutes",
+        "average_rating": 5,  # Please add a record in Rating if updating this to non-zero
+    },
 ]
 
 RATINGS = [
@@ -152,6 +179,8 @@ RATINGS = [
     {"recipe_id": 5, "user_id": 2, "rating": 0},
     {"recipe_id": 6, "user_id": 2, "rating": 1},
     {"recipe_id": 7, "user_id": 3, "rating": 3},
+    {"recipe_id": 8, "user_id": 3, "rating": 4},
+    {"recipe_id": 9, "user_id": 3, "rating": 5},
 ]
 
 
