@@ -1,0 +1,65 @@
+{% extends 'category/base.html' %} {% load static %} {% block title %}
+<h1 class="text-3xl md:text-4xl font-bold text-green-700">{{category.name}}</h1>
+{% endblock %} {% block description %} {{category.description}}
+{%endblock %} {% block image %}
+<!-- Create static image URL. The image name must be slug field followed by .jpeg -->
+{% with img_url='images'|add:"/"|add:category.slug|add:".jpeg" %}
+<img
+  src="{% static img_url %}"
+  alt="{{category.name}} Category"
+  class="rounded-lg shadow-md w-full"
+/>
+{% endwith %}
+{% endblock %} {% block card %}
+{% for recipe in recipes %}
+<div class="bg-white rounded-lg shadow p-4" ="createStarRating('{{recipe.average_rating}}', '{{recipe.id}}')">
+  <div class="relative w-full h-40 mb-3">
+    <img
+      src="{% static 'images/starter.avif' %}"
+      alt="{{category.name}}"
+      class="w-full h-full object-cover rounded"
+    />
+    <div
+      class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 rounded-br"
+    >
+      {{category.name}}
+    </div>
+  </div>
+  <div class="mb-1">
+    <span class="text-gray-500 text-sm mr-2">Origin:</span>
+    <span class="text-gray-700">{{recipe.origin}}</span>
+  </div>
+  <div class="mb-2">
+    <span class="text-gray-500 text-sm mr-2">Name:</span>
+    <span class="text-gray-800 font-medium">{{recipe.title}}</span>
+  </div>
+  <!-- Rating -->
+  <div class="flex space-x-1 text-yellow-500 mb-2">
+    <!-- average_rating can be from 0 to 5, but we don't want to show a star for
+     we should show empty stars when average_rating = 0-->
+  {% for i in "12345" %}
+    {% if forloop.counter <= recipe.average_rating %}
+    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+      <path
+        d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+      />
+    </svg>
+    {% else %}
+    <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
+      <path
+        d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+      />
+    </svg>
+    {% endif %}
+  {% endfor %}
+  </div>
+  
+  <!-- View Recipe -->
+  <button
+    class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500 transition"
+  >
+    View Recipe
+  </button>
+</div>
+{% endfor %}
+{% endblock %}

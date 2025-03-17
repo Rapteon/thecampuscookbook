@@ -38,11 +38,26 @@ USERS = [
 ]
 
 CATEGORIES = [
-    {"name": "Soup"},  # id = 1
-    {"name": "Main"},  # id = 2
-    {"name": "Dessert"},  # id = 3
-    {"name": "Starter"},  # id = 4
-    {"name": "Creative"},  # id = 5
+    {
+        "name": "Soup",
+        "description": """Hearty soups from around the globe to keep you warm and satisfied.""",
+    },  # id = 1
+    {
+        "name": "Main",
+        "description": """Satisfy your hunger with our diverse selection of main course dishes, featuring hearty flavors and creative culinary ideas. """,
+    },  # id = 2
+    {
+        "name": "Dessert",
+        "description": """Satisfy your hunger with our diverse selection of main course dishes, featuring hearty flavors and creative culinary ideas.""",
+    },  # id = 3
+    {
+        "name": "Starter",
+        "description": """Delight your taste buds with our mouth-watering selection of appetizers that perfectly kick off any meal.""",
+    },  # id = 4
+    {
+        "name": "Creative",
+        "description": """Dive into a world of culinary innovation where every recipe is a canvas. Explore unique, fusion-style dishes that defy tradition.""",
+    },  # id = 5
 ]
 
 RECIPES = [
