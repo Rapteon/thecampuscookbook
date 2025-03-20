@@ -7,7 +7,8 @@ import django
 django.setup()
 
 from category.models import Category
-from account.models import Recipe, SavedRecipe, Rating
+from account.models import Rating
+from recipe.models import Recipe
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -74,6 +75,7 @@ Blend the soup until smooth. I typically use an immersion blender, but a regular
 """,
         "preparation_time": "1hour",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/tomato-soup.jpeg",
     },
     {
         # id = 2
@@ -88,6 +90,7 @@ Wipe out the saucepan and return to the stovetop. Melt remaining butter and add 
 Add pasta to the sauce, mix thoroughly, and season with salt or pepper. Serve in bowls topped with green onions, cilantro, and breadcrumbs.""",
         "preparation_time": "25 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/garlic-butter-noodles-with-chicken.jpeg",
     },
     {
         # id = 3
@@ -102,6 +105,7 @@ Heat oil in a wok and stir-fry the garlic, ginger, spring onions, and chillies f
 Serve the stir-fried noodles on plates, topped with the grilled miso-glazed salmon.""",
         "preparation_time": "30-35 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/miso-glazed-salmon-with-stir-fried-noodles.jpeg",
     },
     {
         # id = 4
@@ -116,6 +120,7 @@ Return the pan to the heat, whisking as the soup comes to a boil. Reduce the hea
 Season to taste with salt and pepper. Serve immediately with fresh white bread and butter. Optionally, garnish with chopped chives or whole shell-on prawns hooked onto the bowl.""",
         "preparation_time": "20-25 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/norwegian-fiskesuppe.jpeg",
     },
     {
         # id = 5
@@ -130,6 +135,7 @@ While the chicken grills, mix Greek yogurt with gardeners mint sauce and set asi
 To assemble, spread a large spoonful of mint yogurt onto each flatbread. Top with shredded lettuce, cucumber, grilled chicken, pomegranate seeds, and olives. Squeeze the remaining lemon half over the flatbreads and serve with extra mint yogurt and cucumber segments.""",
         "preparation_time": "30 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/sumac-chicken-flatbreads-with-mint-yogurt.jpeg",
     },
     {
         # id = 6
@@ -144,6 +150,7 @@ Remove the lid and shred the chicken using two forks. Stir in the milk or single
 Sprinkle with fresh parsley or chives and serve with warm crusty bread.""",
         "preparation_time": "Over 2 hours",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/slow-cooker-creamy-chicken-soup.jpeg",
     },
     {
         # id = 7
@@ -158,6 +165,7 @@ Tip in the chickpeas or lentils and pour in the water or stock. Bring to a simme
 Season with salt and freshly ground black pepper. Serve hot.""",
         "preparation_time": "Less than 30 mins",
         "average_rating": 0,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/spiced-harissa-chickpea-soup.jpeg",
     },
     {
         # id = 8
@@ -170,6 +178,7 @@ Season with salt and freshly ground black pepper. Serve hot.""",
 Once all vegetables are cooked, add garlic, thyme, sherry vinegar, and more olive oil to each bowl. Allow to marinate for at least 1 hour at room temperature before serving, or refrigerate for up to 3 days. Bring to room temperature before serving.""",
         "preparation_time": "30 minutes",
         "average_rating": 4,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/grilled-vegetable-antipasti.jpeg",
     },
     {
         # id = 9
@@ -183,6 +192,25 @@ Cook until the first side is golden brown, then flip and brown the other side fo
 Remove the sandwich to a plate and top with strawberry preserves, or serve the preserves on the side.""",
         "preparation_time": "15 minutes",
         "average_rating": 5,  # Please add a record in Rating if updating this to non-zero
+        "image_path": "images/recipes/sweet-and-spicy-turkey-sandwich.jpeg",
+    },
+    {
+        "user_id": 2,
+        "title": "Easy Apple Crumble",
+        "origin": "United Kingdom",
+        "category_id": 3,
+        "ingredients": "plain_flour, salt, brown_sugar, unsalted_butter, apples, brown_sugar, plain_flour, ground_cinnamon",
+        "description": """
+            Preheat the oven to 180C/160C Fan/Gas 4.
+            Place the flour, salt, and sugar in a large bowl and mix well. Taking a few cubes of butter at a time, rub into the flour mixture until it resembles breadcrumbs.
+            Place the fruit in a large bowl and sprinkle over the sugar, flour, and cinnamon. Stir carefully.
+            Butter a 24cm/9in ovenproof dish. Spoon the fruit mixture into the bottom, then sprinkle the crumble mixture on top.
+            Bake for 40–45 minutes until the crumble is browned and the fruit mixture is bubbling.
+            Serve with thick cream or custard.
+            """,
+        "preparation_time": "1 hour 30 minutes",
+        "average_rating": 0,
+        "image_path": "images/recipes/easy-apple-crumble.jpeg",
     },
 ]
 
@@ -238,6 +266,15 @@ def add_recipe(recipe_data):
             preparation_time=recipe_data["preparation_time"],
             average_rating=recipe_data["average_rating"],
         )
+        # image_path = Path(os.path.join(MEDIA_ROOT, *(recipe_data["image_path"].split("/"))))
+        try:
+            recipe.image.name = recipe_data["image_path"]
+            # with image_path.open(mode="rb")as f:
+            #     recipe.image = File(f, name=recipe_data["image_path"])
+            recipe.save()
+        except FileNotFoundError as e:
+            print(e.filename)
+
         print(f"Creating recipe: {recipe}")
         recipe.save()
     except IntegrityError:

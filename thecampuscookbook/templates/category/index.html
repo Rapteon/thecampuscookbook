@@ -15,7 +15,7 @@
 <div class="bg-white rounded-lg shadow p-4" ="createStarRating('{{recipe.average_rating}}', '{{recipe.id}}')">
   <div class="relative w-full h-40 mb-3">
     <img
-      src="{% static 'images/starter.avif' %}"
+      src="{{recipe.image.url}}"
       alt="{{category.name}}"
       class="w-full h-full object-cover rounded"
     />
