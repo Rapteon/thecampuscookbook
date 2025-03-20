@@ -155,3 +155,28 @@ trying to commit the changes. This means the file has been formatted, but your c
 have not been committed. After the *failed* message, simply add the file using `git add <failed_file_path>`  
 and then commit the changes again using `git commit -m '<message>'`.
 4. If you would like to run the formatter manually, you can run it like `black <file_name>.py`.
+
+
+## SQLite development database
+
+### Setup the database
+
+1. Activate the conda environment as specified in the [conda env setup section](#setup-conda-environment).
+2. Navigate to the directory containing the `manage.py` file.
+3. Run `python manage.py migrate` to create the database.
+
+We have created a script to populate the database with sample data.  
+To run the `data-populator.py` script, type `python data-populator.py`
+
+### Making changes to the database
+
+Making changes to any of the model.py files means you would need to update the database.  
+Note that you might also need to modify the `data-populator.py` script to support  
+new schema changes.
+In this scenario, follow these steps:
+1. Save the modified `models.py` file.
+2. Delete the existing `db.sqlite3` file. This means you will be deleting the existing database.
+3. Navigate to the directory containing the `manage.py` script.
+4. Run `python manage.py makemigrations`. This will create one or more migration files in the modified app.
+5. Run `python manage.py migrate`. This command will apply the changes to your database.
+6. Run `python data-populator.py` script to repopulate the database.
