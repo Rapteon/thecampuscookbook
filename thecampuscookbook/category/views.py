@@ -1,23 +1,18 @@
 from django.shortcuts import render
+from .models import Category
+from account.models import Recipe
 
 # Create your views here.
 
 
-def soup(request):
-    return render(request, "category/soup/index.html")
+def show_category(request, category_name_slug):
+    context_dict = {}
 
+    category = Category.objects.get(slug=category_name_slug)
 
-def starter(request):
-    return render(request, "category/starter/index.html")
+    recipes = Recipe.objects.filter(category_id=category.id)
 
+    context_dict["category"] = category
+    context_dict["recipes"] = recipes
 
-def main(request):
-    return render(request, "category/main/index.html")
-
-
-def dessert(request):
-    return render(request, "category/dessert/index.html")
-
-
-def creative(request):
-    return render(request, "category/creative/index.html")
+    return render(request, "category/index.html", context_dict)
