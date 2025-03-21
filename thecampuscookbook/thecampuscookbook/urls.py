@@ -23,7 +23,7 @@ from register.views import index as register_index
 from category.urls import urlpatterns as category_urls
 from account.urls import urlpatterns as account_urls
 from django.conf.urls.static import static
-from thecampuscookbook import settings
+from django.conf import settings
 
 
 urlpatterns = [

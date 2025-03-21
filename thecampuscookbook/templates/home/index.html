@@ -96,6 +96,7 @@
     <!-- ========== FEED SECTION ========== -->
     <section class="bg-white py-12">
       <div class="max-w-7xl mx-auto px-4">
+        {% if latest_recipes %}
         <h2
           class="text-2xl md:text-3xl font-bold text-green-700 text-center mb-8"
         >
@@ -104,105 +105,49 @@
 
         <div class="space-y-8">
           <!-- Post Card -->
+          {% for recipe in latest_recipes %}
           <div
             class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start md:space-x-6"
           >
             <img
-              src="https://via.placeholder.com/150?text=Post+Image"
-              alt="Last Post Image"
+              src="{{recipe.image.url}}"
+              alt="Image of {{recipe.title}}"
               class="w-32 h-32 rounded-md object-cover mb-4 md:mb-0"
             />
             <div class="flex-1 space-y-2">
-              <h3 class="text-xl font-semibold text-gray-800">
-                Delicious Veggie Pasta
-              </h3>
-              <p class="text-gray-700">
-                A colorful and healthy pasta recipe loaded with fresh
-                vegetables. Perfect for quick weeknight dinners.
-              </p>
+              <h3 class="text-xl font-semibold text-gray-800">{{recipe.title}}</h3>
+              <p class="text-gray-700">{{recipe.description}}</p>
               <!-- Star Rating -->
               <div class="flex space-x-1 text-yellow-500">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg
-                  class="w-5 h-5 text-gray-300 fill-current"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
+                <!-- average_rating can be from 0 to 5, but we don't want to show a star for
+                we should show empty stars when average_rating = 0-->
+              {% for i in "12345" %}
+              {% if forloop.counter <= recipe.average_rating %}
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                />
+              </svg>
+              {% else %}
+              <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
+                />
+              </svg>
+              {% endif %}
+            {% endfor %}
               </div>
             </div>
           </div>
-
-          <!-- Another Post Card -->
-          {% comment %} will be rednered from the db {% endcomment %}
-          <div
-            class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start md:space-x-6"
-          >
-            <img
-              src="https://via.placeholder.com/150?text=Post+Image"
-              alt="Last Post Image"
-              class="w-32 h-32 rounded-md object-cover mb-4 md:mb-0"
-            />
-            <div class="flex-1 space-y-2">
-              <h3 class="text-xl font-semibold text-gray-800">
-                Triple Chocolate Cake
-              </h3>
-              <p class="text-gray-700">
-                Indulge in this rich, moist chocolate cake layered with decadent
-                frosting. A true showstopper for any event.
-              </p>
-              <!-- Star Rating -->
-              <div class="flex space-x-1 text-yellow-500">
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                  <path
-                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
+        {% else %}
+        <h2
+        class="text-2xl md:text-3xl font-bold text-green-700 text-center mb-8"
+      >
+        No Latest Recipes
+      </h2>
+        {% endif %}
       </div>
     </section>
 
