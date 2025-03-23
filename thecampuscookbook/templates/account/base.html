@@ -1,28 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+  <head>
+    {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}"> <!-- Link to account.css -->
+  </head>
   <body class="bg-gray-50">
-    {% include 'global/navbar/navbar_account.html' %}
+    {% include 'global/navbar/navbar.html' %}
     <!-- ========== PROFILE HEADER ========== -->
-    <header class="bg-gray-200 py-6">
-      <div
-        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:justify-between"
-      >
+    <header class="bg-gray-200 py-6"> <!-- Inline style removed -->
+      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:justify-between">
         <!-- Left: User Icon & Name -->
         <div class="flex items-center space-x-4">
           <!-- User Icon Placeholder -->
-          <div
-            class="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center"
-          >
-            <svg
-              class="w-8 h-8 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.24 12 2.24 7.12 4.42 7.12 7.12 9.3 12 12 12zm0 2.16c-2.9 0-8.64 1.46-8.64 4.37v1.31h17.28v-1.31c0-2.91-5.74-4.37-8.64-4.37z"
-              />
+          <div class="w-16 h-16 bg-gray-400 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.24 12 2.24 7.12 4.42 7.12 7.12 9.3 12 12 12zm0 2.16c-2.9 0-8.64 1.46-8.64 4.37v1.31h17.28v-1.31c0-2.91-5.74-4.37-8.64-4.37z"/>
             </svg>
           </div>
           <!-- Account Holder Name -->
@@ -31,34 +24,21 @@
 
         <!-- Right: Sub-navigation for profile sections -->
         <div class="flex space-x-4">
-          <a
-            href="{% url 'my-recipes' %}"
-            class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 transition"
-          >
+          <a href="{% url 'my-recipes' %}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 transition">
             My Recipes
           </a>
-          <a
-            href="{% url 'saved-recipes' %}"
-            class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition"
-          >
+          <a href="{% url 'saved-recipes' %}" class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition">
             Saved Recipes
           </a>
-          <a
-            href="{% url 'add-recipe' %}"
-            class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition"
-          >
+          <a href="{% url 'add-recipe' %}" class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition">
             Add New Recipe
           </a>
-          <a
-            href="{% url 'settings' %}"
-            class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition"
-          >
+          <a href="{% url 'settings' %}" class="px-4 py-2 bg-white text-green-600 border border-green-600 rounded hover:bg-green-50 transition">
             Manage My Account
           </a>
         </div>
       </div>
     </header>
-
     <!-- ========== MAIN CONTENT ========== -->
     <main class="max-w-7xl mx-auto px-4 py-8">
       {% block content %}{% endblock %}
