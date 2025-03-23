@@ -1,104 +1,51 @@
-{% extends 'account/base.html' %} {% load static %} {% block content %}
-<!-- Sort / Filter -->
-<div class="flex items-center justify-between mb-6">
-  <h2 class="text-xl font-semibold text-gray-800">Saved Recipes</h2>
-  <div class="flex items-center space-x-2">
-    <label for="sort" class="text-gray-700 font-medium">Sort By:</label>
-    <select
-      id="sort"
-      name="sort"
-      class="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400"
-    >
-      <option value="name">Alphabetical</option>
-      <option value="rating">Most liked</option>
-      <option value="origin">Origin</option>
-    </select>
+{% extends 'account/base.html' %} 
+{% load static %} 
+{% block content %}
+<div class="saved-recipes-container">
+  <!-- Sort / Filter -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="saved-recipes-title">Saved Recipes</h2>
+    <div class="flex items-center space-x-2">
+      <label for="sort" class="text-gray-700 font-medium">Sort By:</label>
+      <select id="sort" name="sort" class="sort-select">
+        <option value="name">Alphabetical</option>
+        <option value="rating">Most liked</option>
+        <option value="origin">Origin</option>
+      </select>
+    </div>
   </div>
-</div>
 
-<!-- Recipes Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-  <!-- Card 1 -->
-  <div class="bg-white rounded-lg shadow p-4">
-    <div class="relative w-full h-40 mb-3">
-      <img
-        src="{% static 'images/dessert.jpg' %}"
-        alt="Recipe"
-        class="w-full h-full object-cover rounded"
-      />
-      <div
-        class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 rounded-br"
-      >
-        Dessert
+  <!-- Recipes Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Card 1 -->
+    <div class="recipe-card">
+      <div class="relative w-full h-40 mb-3">
+        <img src="{% static 'images/dessert.jpg' %}" alt="Recipe" class="w-full h-full object-cover rounded"/>
+        <div class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 rounded-br">Dessert</div>
       </div>
+      <div class="mb-1">
+        <span class="text-gray-500 text-sm mr-2">Origin:</span>
+        <span class="text-gray-700">French</span>
+      </div>
+      <div class="mb-2">
+        <span class="text-gray-500 text-sm mr-2">Name:</span>
+        <span class="text-gray-800 font-medium">Crème Brûlée</span>
+      </div>
+      <!-- Rating -->
+      <div class="flex space-x-1 text-yellow-500 mb-2">
+        <!-- Star icons -->
+      </div>
+      <button class="remove-button">Remove</button>
     </div>
-    <div class="mb-1">
-      <span class="text-gray-500 text-sm mr-2">Origin:</span>
-      <span class="text-gray-700">French</span>
-    </div>
-    <div class="mb-2">
-      <span class="text-gray-500 text-sm mr-2">Name:</span>
-      <span class="text-gray-800 font-medium">Crème Brûlée</span>
-    </div>
-    <!-- Rating -->
-    <div class="flex space-x-1 text-yellow-500 mb-2">
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 
-             6.567.955-4.755 4.635 1.123 6.545z"
-        />
-      </svg>
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 
-             6.567.955-4.755 4.635 1.123 6.545z"
-        />
-      </svg>
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 
-             6.567.955-4.755 4.635 1.123 6.545z"
-        />
-      </svg>
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 
-             6.567.955-4.755 4.635 1.123 6.545z"
-        />
-      </svg>
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 
-             6.567.955-4.755 4.635 1.123 6.545z"
-        />
-      </svg>
-    </div>
-    <button
-      class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-400 transition"
-    >
-      Remove
-    </button>
   </div>
-</div>
 
-<!-- Pagination -->
-<div class="mt-8 flex justify-center">
-  <nav class="inline-flex items-center space-x-1">
-    <a
-      href="#"
-      class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
-      >1</a
-    >
-    <a
-      href="#"
-      class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition"
-      >2</a
-    >
-    <a
-      href="#"
-      class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition"
-      >3</a
-    >
-  </nav>
+  <!-- Pagination -->
+  <div class="mt-8 flex justify-center">
+    <nav class="inline-flex items-center space-x-1">
+      <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">1</a>
+      <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition">2</a>
+      <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition">3</a>
+    </nav>
+  </div>
 </div>
 {% endblock %}

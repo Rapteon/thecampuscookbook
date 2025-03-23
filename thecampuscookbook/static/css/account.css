@@ -1,0 +1,190 @@
+/* account.css */
+
+/* Profile Header */
+header.bg-gray-200 {
+    margin-top: 60px;
+    /* Inline style moved here */
+}
+
+/* Add New Recipe Page */
+.add-recipe-container {
+    max-width: 5xl;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.add-recipe-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+}
+
+.cancel-button a {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.cancel-button a:hover {
+    background-color: #15803d;
+}
+
+.recipe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.recipe-form input,
+.recipe-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.recipe-form input:focus,
+.recipe-form textarea:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.5);
+}
+
+.recipe-form button {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.recipe-form button:hover {
+    background-color: #15803d;
+}
+
+/* My Recipes Page */
+.my-recipes-container {
+    max-width: 7xl;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.my-recipes-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.sort-select {
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.sort-select:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.5);
+}
+
+.recipe-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 0.375rem;
+}
+
+.recipe-card button {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s;
+}
+
+.recipe-card button:hover {
+    background-color: #15803d;
+}
+
+/* Saved Recipes Page */
+.saved-recipes-container {
+    max-width: 7xl;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.saved-recipes-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.remove-button {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s;
+}
+
+.remove-button:hover {
+    background-color: #dc2626;
+}
+
+/* Settings Page */
+.settings-container {
+    max-width: 2xl;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.settings-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.settings-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.settings-form input:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.5);
+}
+
+.settings-form button {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.settings-form button:hover {
+    background-color: #15803d;
+}
