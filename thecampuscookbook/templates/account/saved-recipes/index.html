@@ -1,5 +1,5 @@
-{% extends 'account/base.html' %} 
-{% load static %} 
+{% extends 'account/base.html' %}
+{% load static %}
 {% block content %}
 <div class="saved-recipes-container">
   <!-- Sort / Filter -->
@@ -17,34 +17,56 @@
 
   <!-- Recipes Grid -->
   <div class="recipes-grid">
-    <!-- Card 1 -->
+    {% for saved_recipe in page_obj %}
+    <!-- Recipe Card -->
     <div class="recipe-card">
       <div class="recipe-image-container">
-        <img src="{% static 'images/dessert.jpg' %}" alt="Recipe" class="recipe-image"/>
-        <div class="recipe-tag">Dessert</div>
+        <img src="{{ saved_recipe.recipe.image.url }}" alt="{{ saved_recipe.recipe.title }}" class="recipe-image"/>
+        <div class="recipe-tag">{{ saved_recipe.recipe.category_id.name }}</div>
       </div>
       <div class="recipe-meta">
         <span class="meta-label">Origin:</span>
-        <span class="meta-value">French</span>
+        <span class="meta-value">{{ saved_recipe.recipe.origin }}</span>
       </div>
       <div class="recipe-name-container">
         <span class="meta-label">Name:</span>
-        <span class="recipe-name">Crème Brûlée</span>
+        <span class="recipe-name">{{ saved_recipe.recipe.title }}</span>
       </div>
       <!-- Rating -->
       <div class="recipe-rating">
-        <!-- Star icons -->
+        {% with ''|center:saved_recipe.recipe.average_rating as range %}
+          {% for _ in range %}
+            ★
+          {% endfor %}
+        {% endwith %}
       </div>
       <button class="remove-button">Remove</button>
     </div>
+    {% empty %}
+    <p class="no-recipes">No saved recipes found.</p>
+    {% endfor %}
   </div>
 
   <!-- Pagination -->
   <div class="pagination-container">
     <nav class="pagination-nav">
-      <a href="#" class="pagination-link pagination-link-active">1</a>
-      <a href="#" class="pagination-link">2</a>
-      <a href="#" class="pagination-link">3</a>
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-link">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a href="?page={{ num }}" class="pagination-link pagination-link-active">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a href="?page={{ num }}" class="pagination-link">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">last &raquo;</a>
+      {% endif %}
     </nav>
   </div>
 </div>
