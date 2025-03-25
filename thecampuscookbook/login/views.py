@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -32,7 +33,13 @@ def user_login(request):
         return render(request, "login/login.html")
 
 
+# User must be logged in to log out.
+@login_required
 def user_logout(request):
     logout(request)
     # Redirect to home page on logout.
     return redirect("home")
+
+
+def user_restricted(request):
+    return render(request, "login/restricted.html")

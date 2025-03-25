@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from home.views import index as home_index
-from login.views import user_login, user_logout
+from login.views import user_login, user_logout, user_restricted
 from register.views import register
 from category.urls import urlpatterns as category_urls
 from account.urls import urlpatterns as account_urls
@@ -34,6 +34,7 @@ urlpatterns = [
     path("category/", include(category_urls), name="category"),
     path("profile/", include(account_urls), name="account"),  # profile = account
     path("logout/", user_logout, name="logout"),
+    path("restricted/", user_restricted, name="restricted"),
 ]
 
 if settings.DEBUG:
