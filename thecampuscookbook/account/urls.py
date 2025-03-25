@@ -1,12 +1,9 @@
 from django.urls import path
-from account.views import my_recipes
-from account.views import add_recipe
-from account.views import saved_recipes
-from account.views import settings
+import account.views as views
 
 urlpatterns = [
-    path("my-recipes/", my_recipes, name="my-recipes"),
-    path("add-recipe/", add_recipe, name="add-recipe"),
-    path("saved-recipes/", saved_recipes, name="saved-recipes"),
-    path("settings/", settings, name="settings"),
+    path("my-recipes/", views.my_recipes, name="my-recipes"),
+    path("add-recipe/", views.add_recipe, name="add-recipe"),
+    path("saved-recipes/", views.saved_recipes, name="saved-recipes"),
+    path("settings/", views.settings, name="settings"),
 ]

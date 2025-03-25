@@ -1,157 +1,113 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
-  <body class="bg-gray-50 text-gray-800">
-    <!-- ========== NAVBAR ========== -->
-    {% include 'global/navbar/navbar.html' %}
-    <!-- ========== HEADER ========== -->
-    <header class="bg-gray-180 w-full bg-cover bg-center px-8">
-      <img
-            src="{% static 'images/home2.jpeg' %}"
-            alt="Header Image"
-            class="rounded-lg w-full h-full object-cover"
-          />
-      <div
-        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center md:justify-between space-y-6 md:space-y-0"
-      >
-        <!-- Quick Intro Text -->
+{% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 
-        <div class="flex-1 text-center md:text-center md:pl-10 space-y-4 py-4">
-          <h1 class="text-3xl md:text-4xl font-bold text-green-700">
-            Welcome to The Campus Cookbook!
-          </h1>
-          <p class="text-gray-700">
-            Explore our best recipes for starters, soups, main courses, desserts, and
-            creative creations!
-          </p>
-        
-        </div>
-      </div>
-    </header>
+<body class="body">
+  <!-- ========== NAVBAR ========== -->
+  {% include 'global/navbar/navbar.html' %}
+  <!-- ========== HEADER ========== -->
+  <header class="header">
+    <img src="{% static 'images/home2.jpeg' %}" alt="Header Image" class="header-image" />
+    <div class="header-container">
+      <!-- Quick Intro Text -->
 
-    <!-- ========== CATEGORY SECTION ========== -->
-    <section class="bg-white py-8">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <!-- Category Card -->
-          <a
-            href="{% url 'show_category' 'starter' %}"
-            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
-          >
-            <h2 class="font-semibold text-lg text-gray-100">Starter</h2>
-          </a>
-          <a
-            href="{% url 'show_category' 'soup' %}"
-            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
-          >
-            <h2 class="font-semibold text-lg text-gray-100">Soup</h2>
-          </a>
-          <a
-            href="{% url 'show_category' 'main' %}"
-            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
-          >
-            <h2 class="font-semibold text-lg text-gray-100">Main</h2>
-          </a>
-          <a
-            href="{% url 'show_category' 'dessert' %}"
-            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
-          >
-            <h2 class="font-semibold text-lg text-gray-100">Dessert</h2>
-          </a>
-          <a
-            href="{% url 'show_category' 'creative' %}"
-            class="bg-green-900 border border-gray-200 p-4 text-center rounded-lg hover:bg-green-600 transition"
-          >
-            <h2 class="font-semibold text-lg text-gray-100">Being Creative!</h2>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== ABOUT US ========== -->
-    <section class="bg-gray-100 py-12">
-      <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
-        <h2 class="text-2xl md:text-3xl font-bold text-green-700">About Us</h2>
-        <p class="text-gray-700 font-bold leading-relaxed">
-          Dear fellow students!
+      <div class="header-text">
+        <h1>
+          Welcome to The Campus Cookbook!
+        </h1>
+        <p>
+          Explore our best recipes for starters, soups, main courses, desserts, and
+          creative creations!
         </p>
-        <p class="text-gray-700 leading-relaxed">
-          We invite you to a culinary journey of campus life.
-          The Campus Cookbook has been created to enable the posting and browsing of recipes of University
-          students who enjoy cooking and, despite the occasional limitations of campus life, can make
-          delicious, innovative or at least edible meals.
-        </p>
-        <p class="text-gray-700 leading-relaxed">
-          The site also welcomes students who barely left the comfort of home, have no idea what to do with a
-          room called "kitchen", and need some inspiration...Or students who have moments like I have a
-          deadline; it is the middle of the night, I have only 4 things in my fridge, now what to make?
-          <br>Does any of it sound familiar?
-          <br>If your answer is yes, this application is for you to utilise.
-          <br><b>"Enjoy”</b>, and remember, cooking is not only for survival but for fun, too!
-        </p>
+
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- ========== FEED SECTION ========== -->
-    <section class="bg-white py-12">
-      <div class="max-w-7xl mx-auto px-4">
-        {% if latest_recipes %}
-        <h2
-          class="text-2xl md:text-3xl font-bold text-green-700 text-center mb-8"
-        >
-          Latest Posts
-        </h2>
+  <!-- ========== CATEGORY SECTION ========== -->
+  <section class="category-section">
+    <div class="category-container">
+      <div class="category-grid">
+        <!-- Category Card -->
+        <a href="{% url 'show_category' 'starter' %}" class="category-card">Starter</a>
+        <a href="{% url 'show_category' 'soup' %}" class="category-card">Soup</a>
+        <a href="{% url 'show_category' 'main' %}" class="category-card">Main</a>
+        <a href="{% url 'show_category' 'dessert' %}" class="category-card">Dessert</a>
+        <a href="{% url 'show_category' 'creative' %}" class="category-card">Being
+          Creative! </a>
+      </div>
+    </div>
+  </section>
 
-        <div class="space-y-8">
-          <!-- Post Card -->
-          {% for recipe in latest_recipes %}
-          <div
-            class="bg-gray-100 rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start md:space-x-6"
-          >
-            <img
-              src="{{recipe.image.url}}"
-              alt="Image of {{recipe.title}}"
-              class="w-32 h-32 rounded-md object-cover mb-4 md:mb-0"
-            />
-            <div class="flex-1 space-y-2">
-              <h3 class="text-xl font-semibold text-gray-800">{{recipe.title}}</h3>
-              <p class="text-gray-700">{{recipe.description}}</p>
-              <!-- Star Rating -->
-              <div class="flex space-x-1 text-yellow-500">
-                <!-- average_rating can be from 0 to 5, but we don't want to show a star for
+  <!-- ========== ABOUT US ========== -->
+  <section class="about-section">
+    <div class="about-container">
+      <h2>About Us</h2>
+      <p class="intro">
+        Dear fellow students!
+      </p>
+      <p>
+        We invite you to a culinary journey of campus life.
+        The Campus Cookbook has been created to enable the posting and browsing of recipes of University
+        students who enjoy cooking and, despite the occasional limitations of campus life, can make
+        delicious, innovative or at least edible meals.
+      </p>
+      <p>
+        The site also welcomes students who barely left the comfort of home, have no idea what to do with a
+        room called "kitchen", and need some inspiration...Or students who have moments like I have a
+        deadline; it is the middle of the night, I have only 4 things in my fridge, now what to make?
+        <br>Does any of it sound familiar?
+        <br>If your answer is yes, this application is for you to utilise.
+        <br><b>“Enjoy”</b>, and remember, cooking is not only for survival but for fun, too!
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== FEED SECTION ========== -->
+  <section class="feed-section">
+    <div class="feed-container">
+      {% if latest_recipes %}
+      <h2>Latest Posts</h2>
+
+      <div class="post-list">
+        <!-- Post Card -->
+        {% for recipe in latest_recipes %}
+        <div class="post-card">
+          <img src="{{recipe.image.url}}" alt="Image of {{recipe.title}}" class="post-image" />
+          <div class="post-content">
+            <h3>{{recipe.title}}</h3>
+            <p>{{recipe.description}}</p>
+            <!-- Star Rating -->
+            <div class="rating">
+              <!-- average_rating can be from 0 to 5, but we don't want to show a star for
                 we should show empty stars when average_rating = 0-->
               {% for i in "12345" %}
-              {% if forloop.counter <= recipe.average_rating %}
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+              {% if forloop.counter <= recipe.average_rating %} <svg class="star filled" viewBox="0 0 20 20">
                 <path
-                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                />
-              </svg>
-              {% else %}
-              <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
-                <path
-                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z"
-                />
-              </svg>
-              {% endif %}
-            {% endfor %}
-              </div>
+                  d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+                </svg>
+                {% else %}
+                <svg class="star empty" viewBox="0 0 20 20">
+                  <path
+                    d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+                </svg>
+                {% endif %}
+                {% endfor %}
             </div>
           </div>
-          {% endfor %}
         </div>
-        {% else %}
-        <h2
-        class="text-2xl md:text-3xl font-bold text-green-700 text-center mb-8"
-      >
-        No Latest Recipes
-      </h2>
-        {% endif %}
+        {% endfor %}
       </div>
-    </section>
+      {% else %}
+      <h2>No Latest Recipes</h2>
+      {% endif %}
+    </div>
+  </section>
 
-    <!-- ========== FOOTER ========== -->
-    {% include 'global/footer/footer.html' %}
-  </body>
+  <!-- ========== FOOTER ========== -->
+  {% include 'global/footer/footer.html' %}
+</body>
+
 </html>
