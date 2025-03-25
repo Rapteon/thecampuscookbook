@@ -18,21 +18,25 @@
               <path d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.24 12 2.24 7.12 4.42 7.12 7.12 9.3 12 12 12zm0 2.16c-2.9 0-8.64 1.46-8.64 4.37v1.31h17.28v-1.31c0-2.91-5.74-4.37-8.64-4.37z"/>
             </svg>
           </div>
-          <h1 class="username">Username</h1>
+          <h1 class="username">{{ request.user.username }}</h1>
         </div>
 
         <!-- Right: Sub-navigation for profile sections -->
         <div class="profile-nav-links">
-          <a href="{% url 'my-recipes' %}" class="nav-button nav-button-primary">
+          <a href="{% url 'my-recipes' %}" 
+             class="nav-button {% if request.resolver_match.url_name == 'my-recipes' %}nav-button-active{% else %}nav-button-secondary{% endif %}">
             My Recipes
           </a>
-          <a href="{% url 'saved-recipes' %}" class="nav-button nav-button-secondary">
+          <a href="{% url 'saved-recipes' %}" 
+             class="nav-button {% if request.resolver_match.url_name == 'saved-recipes' %}nav-button-active{% else %}nav-button-secondary{% endif %}">
             Saved Recipes
           </a>
-          <a href="{% url 'add-recipe' %}" class="nav-button nav-button-secondary">
+          <a href="{% url 'add-recipe' %}" 
+             class="nav-button {% if request.resolver_match.url_name == 'add-recipe' %}nav-button-active{% else %}nav-button-secondary{% endif %}">
             Add New Recipe
           </a>
-          <a href="{% url 'settings' %}" class="nav-button nav-button-secondary">
+          <a href="{% url 'settings' %}" 
+             class="nav-button {% if request.resolver_match.url_name == 'settings' %}nav-button-active{% else %}nav-button-secondary{% endif %}">
             Manage My Account
           </a>
         </div>
