@@ -7,7 +7,7 @@ import django
 django.setup()
 
 from category.models import Category
-from recipe.models import Recipe, Rating
+from recipe.models import Recipe, Rating, SavedRecipe
 from account.models import UserProfile
 
 from django.contrib.auth.models import User
@@ -229,6 +229,31 @@ RATINGS = [
     {"recipe_id": 9, "user_id": 3, "rating": 5},
 ]
 
+SAVED_RECIPES = [
+    {"user_profile_id": 1, "recipe_id": 1},  
+    {"user_profile_id": 1, "recipe_id": 2},  
+    {"user_profile_id": 2, "recipe_id": 3},  
+    {"user_profile_id": 2, "recipe_id": 4},  
+    {"user_profile_id": 3, "recipe_id": 5}, 
+    {"user_profile_id": 3, "recipe_id": 6}, 
+    {"user_profile_id": 1, "recipe_id": 7},  
+    {"user_profile_id": 2, "recipe_id": 8},  
+    {"user_profile_id": 3, "recipe_id": 9},  
+    {"user_profile_id": 1, "recipe_id": 10}, 
+]
+
+def add_saved_recipe(saved_recipe_data):
+    try:
+        user_profile = UserProfile.objects.get(id=saved_recipe_data["user_profile_id"])
+        recipe = Recipe.objects.get(id=saved_recipe_data["recipe_id"])
+        saved_recipe = SavedRecipe.objects.create(
+            user_profile=user_profile,
+            recipe=recipe
+        )
+        print(f"Created saved recipe: User {user_profile.user.username} saved {recipe.title}")
+    except IntegrityError:
+        on_integrity_error(saved_recipe_data)
+
 
 def on_integrity_error(data):
     print(f"Already exists: {data}")
@@ -327,6 +352,9 @@ def populate():
 
     for rating_data in RATINGS:
         add_rating(rating_data)
+
+    for saved_recipe_data in SAVED_RECIPES:
+        add_saved_recipe(saved_recipe_data)
 
 
 if __name__ == "__main__":
