@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
-  <body class="bg-gray-50">
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <body>
     {% include 'global/navbar/navbar.html' %}
-    <div class="min-h-screen flex flex-col justify-center items-center">
-      <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center text-green-700 mb-6">
+    <div class="register-container">
+      <div class="register-card">
+        <h2 class="register-title">
           Register
         </h2>
         {% if registered %}
@@ -15,9 +16,9 @@
           <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{user_form.non_field_errors}}</p>
-            <div class="mb-4">
+            <div class="input-field">
               <p>{{user_form.username.errors}}</p>
-              <label class="block text-gray-700 mb-2" for="{{user_form.username.id_for_label}}"
+              <label class="input-label" for="{{user_form.username.id_for_label}}"
                 >Username</label
               >
               <input
@@ -25,22 +26,22 @@
                 name="username"
                 type="text"
                 placeholder="Choose a username"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+                class="input"
               />
             </div>
-            <div class="mb-4">
+            <div class="input-field">
               <p>{{user_form.email.errors}}</p>
-              <label class="block text-gray-700 mb-2" for="{{user_form.email.id_for_label}}">Email</label>
+              <label class="input-label" for="{{user_form.email.id_for_label}}">Email</label>
               <input
                 id="{{user_form.email.id_for_label}}"
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+                class="input"
               />
             </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 mb-2" for="{{user_form.password.id_for_label}}"
+            <div class="input-field">
+              <label class="input-label" for="{{user_form.password.id_for_label}}"
                 >Password</label
               >
               <input
@@ -48,11 +49,11 @@
                 name="password"
                 type="password"
                 placeholder="Set your password"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+                class="input"
               />
             </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 mb-2" for="{{profile_form.avatar.id_for_label}}"
+            <div class="input-field">
+              <label class="input-label" for="{{profile_form.avatar.id_for_label}}"
                 >Avatar Image</label
               >
               <input
@@ -60,22 +61,22 @@
                 name="avatar"
                 type="file"
                 accept="image/png"
-                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+                class="input"
                 value="{{user_form.password2.id_for_label}}"
               />
             <button
               type="submit"
               name="submit"
-              class="w-full bg-green-600 hover:bg-green-500 text-white py-2 rounded transition"
+              class="submit-button"
               value="Register"
             >
               Register
             </button>
           </form>
         {% endif %}
-        <p class="mt-4 text-center text-gray-600">
+        <p class="login-link">
           Already have an account?
-          <a href="{% url 'login' %}" class="text-green-600 hover:underline"
+          <a href="{% url 'login' %}" class="login-button"
             >Sign in</a
           >
         </p>

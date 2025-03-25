@@ -2,17 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
   <body class="bg-gray-50">
     {% include 'global/navbar/navbar.html' %}
-    <div class="min-h-screen flex flex-col justify-center items-center">
-      <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center text-green-700 mb-6">
+    <div class="login-container">
+      <div class="login-card">
+        <h2 class="login-title">
           Login
         </h2>
-        <form method="POST" action="{% url 'login' %}">
+        <form method="POST" action="{% url 'login' %}" id="login_form">
           {% csrf_token %}
-          <div class="mb-4">
-            <label class="block text-gray-700 mb-2" for="username"
+          <div class="input-field">
+            <label class="input-label" for="username"
               >Username</label
             >
             <input
@@ -20,11 +21,11 @@
               name="username"
               type="text"
               placeholder="Enter your username"
-              class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+              class="input"
             />
           </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 mb-2" for="password"
+          <div class="input-field">
+            <label class="input-label" for="password"
               >Password</label
             >
             <input
@@ -32,20 +33,21 @@
               name="password"
               type="password"
               placeholder="Enter your password"
-              class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+              class="input"
             />
           </div>
           <button
             type="submit"
-            class="w-full bg-green-600 hover:bg-green-500 text-white py-2 rounded transition"
+            class="submit-button"
+            value="submit"
           >
             Sign In
           </button>
         </form>
-        <p class="mt-4 text-center text-gray-600">
+        <p class="signup-text">
           Don't have an account?
-          <a href="{% url 'register' %}" class="text-green-600 hover:underline"
-            >Sign up</a
+          <a href="{% url 'register' %}" class="signup-link"
+            >Register</a
           >
         </p>
       </div>
