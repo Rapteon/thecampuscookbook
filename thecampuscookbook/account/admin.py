@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Rating
+from .models import UserProfile
 
-admin.site.register(Recipe)
-admin.site.register(Rating)
+# Register your models here.
+admin.site.register(UserProfile)
