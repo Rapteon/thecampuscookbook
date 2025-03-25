@@ -89,18 +89,20 @@
         </div> -->
 
             <!-- Star Rating -->
-            <div class="modal-footer d-flex flex-column">
-              <div class="rating-stars mb-2" data-recipe-id="{{ recipe.id }}">
-                {% with "12345"|make_list as stars %}
-                {% for star in stars %}
-                <i class="fa-regular fa-star star-icon " data-star="{{ forloop.counter }}"></i>
-                {% endfor %}
-                {% endwith %}
+            <div data-user-authenticated="{{ user.is_authenticated }}">
+              <div class="modal-footer d-flex flex-column">
+                <div class="rating-stars mb-2" data-recipe-id="{{ recipe.id }}">
+                  {% with "12345"|make_list as stars %}
+                  {% for star in stars %}
+                  <i class="fa-regular fa-star star-icon " data-star="{{ forloop.counter }}"></i>
+                  {% endfor %}
+                  {% endwith %}
+                </div>
+                <button class="btn btn-success me-2 submit-rating-btn" data-recipe-id="{{ recipe.id }}">
+                  Submit Rating</button>
+                <button class="btn btn-outline-primary save-btn" data-recipe-id="{{ recipe.id }}">
+                  Save Recipe</button>
               </div>
-              <button class="btn btn-success me-2 submit-rating-btn" data-recipe-id="{{ recipe.id }}">
-                Submit Rating</button>
-              <button class="btn btn-outline-primary save-btn" data-recipe-id="{{ recipe.id }}">
-                Save Recipe</button>
             </div>
 
           </div>
