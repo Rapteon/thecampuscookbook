@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
         submitRating(recipeId, button);
       });
     });
+
+    // Hide save and rate buttons if user is not authenticated
+    document.querySelector("div[data-user-authenticated=False]").style.display = "none";
   });
   
   function submitRating(recipeId, button) {
