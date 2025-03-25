@@ -3,10 +3,10 @@
 {% block content %}
 <div class="saved-recipes-container">
   <!-- Sort / Filter -->
-  <div class="flex items-center justify-between mb-6">
+  <div class="sort-filter-container">
     <h2 class="saved-recipes-title">Saved Recipes</h2>
-    <div class="flex items-center space-x-2">
-      <label for="sort" class="text-gray-700 font-medium">Sort By:</label>
+    <div class="sort-controls">
+      <label for="sort" class="sort-label">Sort By:</label>
       <select id="sort" name="sort" class="sort-select">
         <option value="name">Alphabetical</option>
         <option value="rating">Most liked</option>
@@ -16,23 +16,23 @@
   </div>
 
   <!-- Recipes Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div class="recipes-grid">
     <!-- Card 1 -->
     <div class="recipe-card">
-      <div class="relative w-full h-40 mb-3">
-        <img src="{% static 'images/dessert.jpg' %}" alt="Recipe" class="w-full h-full object-cover rounded"/>
-        <div class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 rounded-br">Dessert</div>
+      <div class="recipe-image-container">
+        <img src="{% static 'images/dessert.jpg' %}" alt="Recipe" class="recipe-image"/>
+        <div class="recipe-tag">Dessert</div>
       </div>
-      <div class="mb-1">
-        <span class="text-gray-500 text-sm mr-2">Origin:</span>
-        <span class="text-gray-700">French</span>
+      <div class="recipe-meta">
+        <span class="meta-label">Origin:</span>
+        <span class="meta-value">French</span>
       </div>
-      <div class="mb-2">
-        <span class="text-gray-500 text-sm mr-2">Name:</span>
-        <span class="text-gray-800 font-medium">Crème Brûlée</span>
+      <div class="recipe-name-container">
+        <span class="meta-label">Name:</span>
+        <span class="recipe-name">Crème Brûlée</span>
       </div>
       <!-- Rating -->
-      <div class="flex space-x-1 text-yellow-500 mb-2">
+      <div class="recipe-rating">
         <!-- Star icons -->
       </div>
       <button class="remove-button">Remove</button>
@@ -40,11 +40,11 @@
   </div>
 
   <!-- Pagination -->
-  <div class="mt-8 flex justify-center">
-    <nav class="inline-flex items-center space-x-1">
-      <a href="#" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition">1</a>
-      <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition">2</a>
-      <a href="#" class="px-3 py-1 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition">3</a>
+  <div class="pagination-container">
+    <nav class="pagination-nav">
+      <a href="#" class="pagination-link pagination-link-active">1</a>
+      <a href="#" class="pagination-link">2</a>
+      <a href="#" class="pagination-link">3</a>
     </nav>
   </div>
 </div>
