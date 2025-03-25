@@ -7,8 +7,8 @@ import django
 django.setup()
 
 from category.models import Category
-from account.models import Rating
-from recipe.models import Recipe
+from recipe.models import Recipe, Rating
+from account.models import UserProfile
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -23,18 +23,21 @@ USERS = [
         "password": make_password("admin"),
         "is_superuser": True,
         "is_staff": True,
+        "avatar": "images/avatars/admin.png",
     },
     {
         # id = 2
         "username": "janedoe",
         "email": "jane.doe@example.com",
         "password": make_password("jane.doe"),
+        "avatar": "images/avatars/jane-doe.png",
     },
     {
         # id = 3
         "username": "johndoe",
         "email": "john.doe@example.com",
         "password": make_password("john.doe"),
+        "avatar": "images/avatars/john-doe.png",
     },
 ]
 
@@ -233,9 +236,21 @@ def on_integrity_error(data):
 
 def add_user(user_data):
     try:
-        user, _ = User.objects.get_or_create(**user_data)
+        user, _ = User.objects.get_or_create(
+            username=user_data["username"], email=user_data["email"]
+        )
+        user.password = user_data["password"]
+        user.is_superuser = user_data.get("is_superuser", False)
+        user.is_staff = user_data.get("is_staff", False)
+
         print(f"Creating user: {user}")
         user.save()
+
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        print(f"Creating profile: {profile}")
+        profile.avatar.name = user_data["avatar"]
+        profile.save()
+
     except IntegrityError:
         on_integrity_error(user_data)
 
@@ -253,11 +268,12 @@ def add_recipe(recipe_data):
     try:
         user_id = recipe_data["user_id"]
         user = User.objects.filter(id__exact=user_id)[0]
+        user_profile = UserProfile.objects.filter(user=user)[0]
 
         category_id = recipe_data["category_id"]
         category = Category.objects.filter(id__exact=category_id)[0]
         recipe, _ = Recipe.objects.get_or_create(
-            user_id=user,
+            user_profile=user_profile,
             title=recipe_data["title"],
             origin=recipe_data["origin"],
             category_id=category,
@@ -266,11 +282,8 @@ def add_recipe(recipe_data):
             preparation_time=recipe_data["preparation_time"],
             average_rating=recipe_data["average_rating"],
         )
-        # image_path = Path(os.path.join(MEDIA_ROOT, *(recipe_data["image_path"].split("/"))))
         try:
             recipe.image.name = recipe_data["image_path"]
-            # with image_path.open(mode="rb")as f:
-            #     recipe.image = File(f, name=recipe_data["image_path"])
             recipe.save()
         except FileNotFoundError as e:
             print(e.filename)
@@ -288,11 +301,14 @@ def add_rating(rating_data):
 
         user_id = rating_data["user_id"]
         user = User.objects.filter(id__exact=user_id)[0]
+        user_profile = UserProfile.objects.filter(user=user)[0]
 
         rating_data = {**rating_data}
-        rating_data["user_id"] = user
-        rating_data["recipe_id"] = recipe
-        rating, _ = Rating.objects.get_or_create(**rating_data)
+        rating_data["user_profile"] = user_profile
+        rating_data["recipe"] = recipe
+        rating, _ = Rating.objects.get_or_create(
+            recipe=recipe, user_profile=user_profile, rating=rating_data["rating"]
+        )
         print(f"Created rating: {rating}")
         rating.save()
     except IntegrityError:

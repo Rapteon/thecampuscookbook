@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 from home.views import index as home_index
 from login.views import index as login_index
-from register.views import index as register_index
+from register.views import register
 from category.urls import urlpatterns as category_urls
 from account.urls import urlpatterns as account_urls
 from django.conf.urls.static import static
@@ -30,7 +30,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home_index, name="home"),
     path("login/", login_index, name="login"),
-    path("register/", register_index, name="register"),
+    path("register/", register, name="register"),
     path("category/", include(category_urls), name="category"),
     path("profile/", include(account_urls), name="account"),  # profile = account
 ]

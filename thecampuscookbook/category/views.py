@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Category
-from account.models import Recipe
+from recipe.models import Recipe
 
 # Create your views here.
 
