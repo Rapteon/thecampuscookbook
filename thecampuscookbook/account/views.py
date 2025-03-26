@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from recipe.models import SavedRecipe
 from django.contrib.auth.decorators import login_required
+from recipe.forms import RecipeForm
+from category.models import Category
 
 
 @login_required
@@ -24,7 +26,25 @@ def my_recipes(request):
 
 @login_required
 def add_recipe(request):
-    return render(request, "account/add-recipes/index.html")
+    # Save the form if POST request, otherwise show a blank form.
+    if request.method == "POST":
+        recipe_form = RecipeForm(request.POST, request.FILES)
+
+        if recipe_form.is_valid():
+            recipe_form.instance.user_profile = request.user.userprofile
+            recipe_form.save()
+            return redirect("my-recipes")
+        else:
+            print(recipe_form.errors)
+    else:
+        recipe_form = RecipeForm()
+
+    categories = Category.objects.all()
+    return render(
+        request,
+        "account/add-recipes/index.html",
+        {"recipe_form": recipe_form, "categories": categories},
+    )
 
 
 @login_required
