@@ -33,7 +33,20 @@
       </div>
       <!-- Rating -->
       <div class="recipe-rating">
-        <!-- Star icons -->
+       <!-- average_rating can be from 0 to 5, but we don't want to show a star for
+     we should show empty stars when average_rating = 0-->
+    {% for i in "12345" %}
+    {% if forloop.counter <= recipe.average_rating %} <svg class="star filled" viewBox="0 0 20 20">
+      <path
+        d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+      </svg>
+      {% else %}
+      <svg class="star empty" viewBox="0 0 20 20">
+        <path
+          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+      </svg>
+      {% endif %}
+      {% endfor %}
       </div>
       <button class="recipe-edit-button">Edit</button>
     </div>
