@@ -10,44 +10,55 @@
       <select id="sort" name="sort" class="sort-select">
         <option value="name">Alphabetical</option>
         <option value="rating">Most liked</option>
-        <option value="origin">Origin</option>
+        <option value="origin">Category</option>
       </select>
     </div>
   </div>
 
   <!-- Recipes Grid -->
   <div class="recipes-grid">
+    {% for recipe in user_recipes %}
     <!-- Card 1 -->
     <div class="recipe-card">
       <div class="recipe-image-container">
-        <img src="{% static 'images/dessert.jpg' %}" alt="Recipe" class="recipe-image"/>
-        <div class="recipe-tag">Dessert</div>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title.url }}" class="recipe-image"/>
+        <div class="recipe-tag">{{ recipe.category_id.name }}</div>
       </div>
       <div class="recipe-meta">
         <span class="meta-label">Origin:</span>
-        <span class="meta-value">French</span>
+        <span class="meta-value">{{ recipe.origin }}</span>
+        
       </div>
       <div class="recipe-name-container">
         <span class="meta-label">Name:</span>
-        <span class="recipe-name">Crème Brûlée</span>
+        <span class="recipe-name">{{ recipe.title }}</span>
+       
+      {% empty %}
+        <p>You haven’t added any recipes yet.</p>
+      {% endfor %}
       </div>
+
+
       <!-- Rating -->
       <div class="recipe-rating">
        <!-- average_rating can be from 0 to 5, but we don't want to show a star for
      we should show empty stars when average_rating = 0-->
-    {% for i in "12345" %}
-    {% if forloop.counter <= recipe.average_rating %} <svg class="star filled" viewBox="0 0 20 20">
-      <path
-        d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-      </svg>
-      {% else %}
-      <svg class="star empty" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-      </svg>
-      {% endif %}
-      {% endfor %}
-      </div>
+     <div class="rating">
+      {% with ''|center:5 as range %}
+        {% for _ in range %}
+          {% if forloop.counter <= saved_recipe.recipe.average_rating %}
+            <svg class="star filled" viewBox="0 0 20 20">
+              <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+            </svg>
+          {% else %}
+            <svg class="star empty" viewBox="0 0 20 20">
+              <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+            </svg>
+          {% endif %}
+        {% endfor %}
+      {% endwith %}
+    </div>
+  </div>
       <button class="recipe-edit-button">Edit</button>
     </div>
   </div>
