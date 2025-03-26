@@ -828,7 +828,15 @@ header.bg-gray-200 {
     font-size: 1.1rem;
 }
 
-
+.form-input-disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    /* Include any other base styles from .form-input */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 100%;
+  }
 
 
 
