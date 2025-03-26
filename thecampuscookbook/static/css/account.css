@@ -72,6 +72,7 @@ header.bg-gray-200 {
 /* My Recipes Page */
 .my-recipes-container {
     max-width: 7xl;
+    min-height: 400px;
     margin: 0 auto;
     padding: 1rem;
 }
@@ -124,8 +125,10 @@ header.bg-gray-200 {
 /* Saved Recipes Page */
 .saved-recipes-container {
     max-width: 7xl;
+    min-height: 400px;
     margin: 0 auto;
     padding: 1rem;
+    
 }
 
 .saved-recipes-title {
