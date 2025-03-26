@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="{% static 'css/account.css' %}">
   </head>
   <body class="page-background">
+    <!-- Page wrapper for sticky footer layout -->
+    <div class="page-wrapper">
+
+      <!-- Navbar -->
     {% include 'global/navbar/navbar.html' %}
     
     <!-- ========== PROFILE HEADER ========== -->
@@ -48,6 +52,11 @@
       {% block content %}{% endblock %}
     </main>
 
-    {% include 'global/footer/footer.html' %}
+    <!-- ========== FOOTER ========== -->
+    <footer>
+      {% include 'global/footer/footer.html' %}
+    </footer>
+    
+  </div>
   </body>
 </html>

@@ -1,7 +1,26 @@
 /* General Page Styles */
-body {
-    background-color: #f9fafb;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Page Wrapper for Sticky Footer Layout */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main content grows to push footer down */
+.main-container {
+  flex: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
   
   /* Header / Category Hero */
   .category-hero {
