@@ -22,6 +22,7 @@ from login.views import user_login, user_logout, user_restricted
 from register.views import register
 from category.urls import urlpatterns as category_urls
 from account.urls import urlpatterns as account_urls
+from recipe.urls import urlpatterns as recipe_urls
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path("profile/", include(account_urls), name="account"),  # profile = account
     path("logout/", user_logout, name="logout"),
     path("restricted/", user_restricted, name="restricted"),
+    path("recipe/", include(recipe_urls), name="rate_recipe"),
 ]
 
 if settings.DEBUG:
