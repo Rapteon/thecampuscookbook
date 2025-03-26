@@ -23,13 +23,19 @@
     <!-- Username -->
     <div class="form-field">
       <label for="username" class="form-label">Username</label>
-      <input type="text" id="username" name="username" class="form-input" placeholder="Your username" value="{{ user.username|default_if_none:'' }}"/>
+      <input type="text" id="username" name="username" class="form-input" 
+             value="{{ user.username|default_if_none:'' }}" 
+             disabled readonly
+             style="background-color: #f5f5f5; cursor: not-allowed;"/>
     </div>
 
     <!-- Email -->
     <div class="form-field">
       <label for="email" class="form-label">Email</label>
-      <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" value="{{ user.email|default_if_none:'' }}"/>
+      <input type="email" id="email" name="email" class="form-input" 
+             value="{{ user.email|default_if_none:'' }}" 
+             disabled readonly
+             style="background-color: #f5f5f5; cursor: not-allowed;"/>
     </div>
 
     <!-- Password -->
