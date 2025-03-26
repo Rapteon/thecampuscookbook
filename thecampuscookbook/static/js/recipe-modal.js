@@ -31,7 +31,7 @@ $(document).ready(function () {
   $('.save-btn').each((index, button) => {
     $(button).click(() => {
       const recipeId = $(button).attr('data-recipe-id');
-      saveRecipe(recipeId, button, username);
+      saveRecipe(recipeId, button);
     })
   })
 
@@ -90,35 +90,42 @@ function submitRating(recipeId, button) {
     error: function (xhr, status, error) {
       console.error('Error:', error);
       // Show message that already rated.
+      console.log(status)
       alert("You have already rated this recipe.");
     }
   });
 }
 
 function saveRecipe(recipeId, button) {
-  fetch(`/recipe/save`, {
+  $.ajax({
+    url: '/recipe/save/',
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCSRFToken()
-    },
-    body: JSON.stringify({})
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        button.textContent = "Saved!";
-        button.classList.remove("btn-outline-primary");
-        button.classList.add("btn-success");
-        button.disabled = true;
-      } else {
-        alert(data.message || "Could not save recipe.");
+    dataType: "json",
+    data: JSON.stringify({ "recipeId": `${recipeId}` }),
+    headers: { "X-CSRFToken": getCSRFToken(), "X-Requested-With": "XMLHttpRequest" },
+    credentials: 'same-origin',
+    success: function (response) {
+      // Do someting here.
+      switch (response.status) {
+        case "saved":
+          button.textContent = "Saved!";
+          button.classList.remove("btn-outline-primary");
+          button.classList.add("btn-success");
+          button.disabled = true;
+          break;
+        case 'already saved':
+          alert("You have already saved this recipe.");
+          break;
+        case 'not found':
+          alert("Recipe not found.");
+          break;
       }
-    })
-    .catch(err => {
-      console.error("Error saving recipe:", err);
-      alert("Something went wrong.");
-    });
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  });
+
 }
 
 
