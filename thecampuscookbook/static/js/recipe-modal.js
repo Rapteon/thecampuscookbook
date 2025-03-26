@@ -1,31 +1,22 @@
 $(document).ready(function () {
   // Handle star ratings
   $('.rating-stars').each((index, container) => {
-    const stars = $('.star-icon');
+
+    const stars = $(container).children('.star-icon');
     let selectedRating = 0;
 
-    stars.each((index, star) => {
-      $(star).on('mouseover', () => {
-        stars.each((i, s) => {
-          $(s).toggleClass('fa-solid', i <= index);
-          $(s).toggleClass('fa-regular', i > index);
-        });
-      });
-
+    $(stars).each((index, star) => {
       $(star).on('click', () => {
         selectedRating = index + 1;
         $(container).attr('data-selected', selectedRating);
-      });
 
-      $(star).on('mouseout', () => {
-        let rating = $(container).attr('data-selected') || 0;
-        stars.each((i, s) => {
-          $(s).toggleClass('fa-solid', i < rating);
-          $(s).toggleClass('fa-regular', i >= rating);
-        });
+        $(stars).each((i, s) => {
+          $(s).toggleClass('fa-solid', i <= index);
+          $(s).toggleClass('fa-regular', i > index);
+        })
       });
-
     })
+
   })
 
   $('.save-btn').each((index, button) => {
@@ -56,42 +47,41 @@ $(document).ready(function () {
   }
 })
 
-function submitRating(recipeId, button) {
-  const container = $(`.rating-stars[data-recipe-id='${recipeId}']`);
-  const rating = $('.rating-stars').attr('data-selected');
+function submitRating(recipe_id, button) {
+  const rating = $(`.rating-stars[data-recipe-id=${recipe_id}]`).attr('data-selected');
 
   if (!rating) {
     alert("Please select a rating.");
     return;
   }
 
-  console.log(`Submitting rating ${rating} for recipe ${recipeId}`);
+  console.log(`Submitting rating ${rating} for recipe ${recipe_id}`);
 
   $.ajax({
     url: '/recipe/rate/',
     method: 'POST',
     dataType: "json",
-    data: JSON.stringify({ "recipeId": `${recipeId}`, "rating": `${rating}` }),
+    data: JSON.stringify({ "recipeId": `${recipe_id}`, "rating": `${rating}` }),
     headers: { "X-CSRFToken": getCSRFToken(), "X-Requested-With": "XMLHttpRequest" },
     credentials: 'same-origin',
     success: function (response) {
-      switch(response.status) {
+      switch (response.status) {
         case "already rated":
           alert("You have already rated this recipe.");
           break;
-        case "saved":
+        case "rated":
           button.textContent = "Rated!";
           button.classList.remove("btn-success");
           button.classList.add("btn-secondary");
           button.disabled = true;
+          updateRecipe(recipe_id);
           break;
       }
     },
     error: function (xhr, status, error) {
       console.error('Error:', error);
       // Show message that already rated.
-      console.log(status)
-      alert("You have already rated this recipe.");
+      console.log(xhr)
     }
   });
 }
@@ -143,4 +133,45 @@ function getCSRFToken() {
     }
   }
   return cookieValue;
+}
+
+function updateRecipe(recipe_id) {
+  $.ajax({
+    url: '/recipe/get/',
+    method: 'POST',
+    dataType: "json",
+    data: JSON.stringify({ "recipeId": `${recipe_id}` }),
+    headers: { "X-CSRFToken": getCSRFToken(), "X-Requested-With": "XMLHttpRequest" },
+    credentials: 'same-origin',
+    success: function (response) {
+      recipe = JSON.parse(response.recipe)
+      console.log(recipe);
+      $('.rating').each((index, rating) => {
+        console.log("Rating card: ", rating);
+        const idToSearch = recipe.id
+        const idInCard = $(rating).attr('data-recipe-id')
+        console.log(idToSearch, idInCard, typeof idToSearch, typeof idInCard)
+        if ($(rating).attr('data-recipe-id') == recipe.id) {
+          $(rating).children('.star').each((index, star) => {
+            // Reset star display.
+            $(star).removeClass('filled');
+            $(star).removeClass('empty');
+          })
+          $(rating).children('.star').each((index, star) => {
+            if (index < recipe.average_rating) {
+              $(star).addClass('filled');
+            }
+            else {
+              $(star).addClass('empty');
+            }
+          })
+          console.log('Rating card updated: ', rating)
+        }
+      }
+      );
+    },
+    error: function (xhr, status, error) {
+      console.error('Error:', error);
+    }
+  });
 }
