@@ -105,3 +105,33 @@ def is_already_saved(request, recipe_id):
         return False
     except Rating.DoesNotExist:
         return False
+
+
+def remove_recipe(request):
+    if is_ajax_request(request):
+        if request.method == "POST":
+            data = json.load(request)
+
+            recipe_id = int(data.get("recipeId"))
+
+            print(recipe_id)
+            try:
+                recipe = Recipe.objects.get(pk=recipe_id)
+                print(recipe)
+                user_profile = request.user.userprofile
+                saved_recipe = SavedRecipe.objects.get(
+                    recipe=recipe, user_profile=user_profile
+                )
+                print(saved_recipe)
+                saved_recipe.delete()
+                return JsonResponse({"status": "deleted"}, status=200)
+
+            except Recipe.DoesNotExist:
+                return JsonResponse({"status": "not found"}, status=404)
+        else:
+            return HttpResponseBadRequest("Does not accept GET requests.")
+    else:
+        print(request.headers)
+        return HttpResponseBadRequest("Only accepts AJAX requests.")
+
+
