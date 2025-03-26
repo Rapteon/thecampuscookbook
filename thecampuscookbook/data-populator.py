@@ -52,7 +52,7 @@ CATEGORIES = [
     },  # id = 2
     {
         "name": "Dessert",
-        "description": """Satisfy your hunger with our diverse selection of main course dishes, featuring hearty flavors and creative culinary ideas.""",
+        "description": """Indulge in our rich and delightful selection of desserts that will satisfy your sweet cravings""",
     },  # id = 3
     {
         "name": "Starter",
@@ -60,7 +60,7 @@ CATEGORIES = [
     },  # id = 4
     {
         "name": "Creative",
-        "description": """Dive into a world of culinary innovation where every recipe is a canvas. Explore unique, fusion-style dishes that defy tradition.""",
+        "description": """Dive into a world of "culinary innovation" of the extrames where every recipe is a canvas that mirrors University lifestyle. Explore the unique dishes that defy tradition.""",
     },  # id = 5
 ]
 
