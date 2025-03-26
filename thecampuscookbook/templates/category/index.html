@@ -6,7 +6,7 @@
 
 {% block description %}
 <p class="category-description">{{category.description}}</p>
-{%endblock %}
+{% endblock %}
 
 {% block image %}
 <!-- Create static image URL. The image name must be slug field followed by .jpeg -->
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block card %}
-{% for recipe in recipes %}
+{% for recipe in page_obj %}
 <div class="card-container"="createStarRating('{{recipe.average_rating}}', '{{recipe.id}}')">
   <div class="card-image-wrapper">
     <img src="{{recipe.image.url}}" alt="{{category.name}}" class="card-image" />
@@ -35,81 +35,92 @@
 
   <!-- Rating -->
   <div class="rating">
-    <!-- average_rating can be from 0 to 5, but we don't want to show a star for
-     we should show empty stars when average_rating = 0-->
     {% for i in "12345" %}
-    {% if forloop.counter <= recipe.average_rating %} <svg class="star filled" viewBox="0 0 20 20">
-      <path
-        d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-      </svg>
-      {% else %}
-      <svg class="star empty" viewBox="0 0 20 20">
-        <path
-          d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-      </svg>
-      {% endif %}
-      {% endfor %}
+    {% if forloop.counter <= recipe.average_rating %} 
+    <svg class="star filled" viewBox="0 0 20 20">
+      <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+    </svg>
+    {% else %}
+    <svg class="star empty" viewBox="0 0 20 20">
+      <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+    </svg>
+    {% endif %}
+    {% endfor %}
 
-      <!-- Button trigger modal -->
-      <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#recipeModal{{ recipe.id }}">
-        View Recipe
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="recipeModal{{ recipe.id }}" tabindex="-1"
-        aria-labelledby="recipeModalLabel{{ recipe.id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#recipeModal{{ recipe.id }}">
+      View Recipe
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="recipeModal{{ recipe.id }}" tabindex="-1"
+      aria-labelledby="recipeModalLabel{{ recipe.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="recipeModalLabel{{ recipe.id }}">{{ recipe.title }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
+          {% if recipe.image %}
+          <img src="{{ recipe.image.url }}" class="img-fluid rounded-top" alt="{{ recipe.title }}">
+          {% else %}
+          <img src="{% static 'images/soup.jpg' %}" class="img-fluid rounded-top" alt="Default Recipe">
+          {% endif %}
 
-            <div class="modal-header">
-              <h5 class="modal-title" id="recipeModalLabel{{ recipe.id }}">{{ recipe.title }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+          <div class="modal-body">
+            <h6><strong>Origin:</strong></h6>
+            <p>{{ recipe.origin }}</p>
+            <h6><strong>Ingredients:</strong></h6>
+            <p>{{ recipe.ingredients }}</p>
+            <h6><strong>Description:</strong></h6>
+            <p>{{ recipe.description }}</p>
+          </div>
 
-            {% if recipe.image %}
-            <img src="{{ recipe.image.url }}" class="img-fluid rounded-top" alt="{{ recipe.title }}">
-            {% else %}
-            <img src="{% static 'images/soup.jpg' %}" class="img-fluid rounded-top" alt="Default Recipe">
-            {% endif %}
-
-            <div class="modal-body">
-              <h6><strong>Origin:</strong></h6>
-              <p>{{ recipe.origin }}</p>
-              <h6><strong>Ingredients:</strong></h6>
-              <p>{{ recipe.ingredients }}</p>
-              <h6><strong>Description:</strong></h6>
-              <p>{{ recipe.description }}</p>
-            </div>
-
-
-            <!-- 
-        Left it, if we cannot sort star rating!
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div> -->
-
-            <!-- Star Rating -->
-            <div data-user-authenticated="{{ user.is_authenticated }}">
-              <div class="modal-footer d-flex flex-column">
-                <div class="rating-stars mb-2" data-recipe-id="{{ recipe.id }}">
-                  {% with "12345"|make_list as stars %}
-                  {% for star in stars %}
-                  <i class="fa-regular fa-star star-icon " data-star="{{ forloop.counter }}"></i>
-                  {% endfor %}
-                  {% endwith %}
-                </div>
-                <button class="btn btn-success me-2 submit-rating-btn" data-recipe-id="{{ recipe.id }}">
-                  Submit Rating</button>
-                <button class="btn btn-outline-primary save-btn" data-recipe-id="{{ recipe.id }}">
-                  Save Recipe</button>
+          <!-- Star Rating -->
+          <div data-user-authenticated="{{ user.is_authenticated }}">
+            <div class="modal-footer d-flex flex-column">
+              <div class="rating-stars mb-2" data-recipe-id="{{ recipe.id }}">
+                {% with "12345"|make_list as stars %}
+                {% for star in stars %}
+                <i class="fa-regular fa-star star-icon " data-star="{{ forloop.counter }}"></i>
+                {% endfor %}
+                {% endwith %}
               </div>
+              <button class="btn btn-success me-2 submit-rating-btn" data-recipe-id="{{ recipe.id }}">
+                Submit Rating</button>
+              <button class="btn btn-outline-primary save-btn" data-recipe-id="{{ recipe.id }}">
+                Save Recipe</button>
             </div>
-
           </div>
         </div>
       </div>
+    </div>
   </div>
-
+</div>
+{% empty %}
+<div class="no-recipes-message">
+  <p>No recipes found in this category.</p>
 </div>
 {% endfor %}
+
+<!-- Pagination - Only show if needed -->
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="pagination-container">
+  <nav class="pagination-nav">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="pagination-link">&laquo; First</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Previous</a>
+    {% endif %}
+
+    <span class="current-page">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Last &raquo;</a>
+    {% endif %}
+  </nav>
+</div>
+{% endif %}
 {% endblock %}
