@@ -34,7 +34,7 @@
   </div>
 
   <!-- Rating -->
-  <div class="rating">
+  <div class="rating" data-recipe-id="{{ recipe.id }}" data-average-rating="{{ recipe.average_rating }}">
     {% for i in "12345" %}
     {% if forloop.counter <= recipe.average_rating %} 
     <svg class="star filled" viewBox="0 0 20 20">

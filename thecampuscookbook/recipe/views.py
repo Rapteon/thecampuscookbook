@@ -11,6 +11,7 @@ def rate_recipe(request):
         if request.method == "POST":
             data = json.load(request)
 
+            print(data)
             rating_value = int(data.get("rating"))
 
             recipe_id = int(data.get("recipeId"))
@@ -18,11 +19,13 @@ def rate_recipe(request):
                 return JsonResponse({"status": "already rated"}, status=200)
 
             if not is_rating_valid(rating_value):
+                print(rating_value)
                 return JsonResponse(
                     {"status": "rating value out of bounds"}, status=400
                 )
 
             try:
+                print("In try of rating")
                 recipe = Recipe.objects.get(pk=recipe_id)
                 user_profile = request.user.userprofile
                 rating = Rating.objects.create(
@@ -33,7 +36,7 @@ def rate_recipe(request):
                 )["rating__avg"]
                 rating.save()
                 recipe.save()
-                return JsonResponse({"status": "saved"}, status=200)
+                return JsonResponse({"status": "rated"}, status=200)
             except Recipe.DoesNotExist:
                 return JsonResponse({"status": "not found"}, status=404)
         else:
@@ -90,7 +93,6 @@ def save_recipe(request):
         else:
             return HttpResponseBadRequest("Does not accept GET requests.")
     else:
-        print(request.headers)
         return HttpResponseBadRequest("Only accepts AJAX requests.")
 
 
@@ -135,3 +137,36 @@ def remove_recipe(request):
         return HttpResponseBadRequest("Only accepts AJAX requests.")
 
 
+def get_recipe(request):
+    """Returns a recipe by its id"""
+    if is_ajax_request(request):
+        if request.method == "POST":
+            data = json.load(request)
+
+            recipe_id = int(data.get("recipeId"))
+
+            try:
+                recipe = Recipe.objects.get(pk=recipe_id)
+                json_recipe = json.dumps(
+                    {
+                        "id": recipe.id,
+                        "title": recipe.title,
+                        "description": recipe.description,
+                        "origin": recipe.origin,
+                        "category": recipe.category_id.name,
+                        "ingredients": recipe.ingredients,
+                        "preparation_time": recipe.preparation_time,
+                        "average_rating": recipe.average_rating,
+                    }
+                )
+                return JsonResponse(
+                    {"status": "found", "recipe": json_recipe}, status=200
+                )
+
+            except Recipe.DoesNotExist:
+                return JsonResponse({"status": "not found"}, status=404)
+        else:
+            return HttpResponseBadRequest("Does not accept GET requests.")
+    else:
+        print(request.headers)
+        return HttpResponseBadRequest("Only accepts AJAX requests.")
