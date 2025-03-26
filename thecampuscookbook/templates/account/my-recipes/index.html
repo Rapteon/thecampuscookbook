@@ -5,71 +5,84 @@
   <!-- Sort / Filter -->
   <div class="sort-filter-container">
     <h2 class="my-recipes-title">My Recipes</h2>
+    <p class="recipe-count">
+      {% if page_obj.paginator.count > 0 %}
+        Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }} recipes
+      {% else %}
+        You haven't added any recipes yet
+      {% endif %}
+    </p>
     <div class="sort-controls">
       <label for="sort" class="sort-label">Sort By:</label>
       <select id="sort" name="sort" class="sort-select">
         <option value="name">Alphabetical</option>
         <option value="rating">Most liked</option>
-        <option value="origin">Category</option>
+        <option value="origin">Origin</option>
       </select>
     </div>
   </div>
 
   <!-- Recipes Grid -->
   <div class="recipes-grid">
-    {% for recipe in user_recipes %}
-    <!-- Card 1 -->
-    <div class="recipe-card">
+    {% for recipe in page_obj %}
+    <div class="recipe-card" data-recipe-id="{{recipe.id}}">
       <div class="recipe-image-container">
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.title.url }}" class="recipe-image"/>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="recipe-image"/>
         <div class="recipe-tag">{{ recipe.category_id.name }}</div>
       </div>
       <div class="recipe-meta">
         <span class="meta-label">Origin:</span>
         <span class="meta-value">{{ recipe.origin }}</span>
-        
       </div>
       <div class="recipe-name-container">
         <span class="meta-label">Name:</span>
         <span class="recipe-name">{{ recipe.title }}</span>
-       
-      {% empty %}
-        <p>You haven’t added any recipes yet.</p>
-      {% endfor %}
       </div>
-
-
-      <!-- Rating -->
       <div class="recipe-rating">
-       <!-- average_rating can be from 0 to 5, but we don't want to show a star for
-     we should show empty stars when average_rating = 0-->
-     <div class="rating">
-      {% with ''|center:5 as range %}
-        {% for _ in range %}
-          {% if forloop.counter <= saved_recipe.recipe.average_rating %}
-            <svg class="star filled" viewBox="0 0 20 20">
-              <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-            </svg>
-          {% else %}
-            <svg class="star empty" viewBox="0 0 20 20">
-              <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
-            </svg>
-          {% endif %}
-        {% endfor %}
-      {% endwith %}
-    </div>
-  </div>
+        {% with ''|center:5 as range %}
+          {% for _ in range %}
+            {% if forloop.counter <= recipe.average_rating %}
+              <svg class="star filled" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+              </svg>
+            {% else %}
+              <svg class="star empty" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.567-.955L10 .5l2.943 5.455 6.567.955-4.755 4.635 1.123 6.545z" />
+              </svg>
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+      </div>
       <button class="recipe-edit-button">Edit</button>
     </div>
+    {% empty %}
+    <div class="no-recipes-message">
+      <p>You haven't added any recipes yet.</p>
+      <p>Visit the add recipes page to create some!</p>
+    </div>
+    {% endfor %}
   </div>
 
-  <!-- Pagination -->
+  <!-- Pagination - Only show if needed -->
+  {% if page_obj.paginator.num_pages > 1 %}
   <div class="pagination-container">
     <nav class="pagination-nav">
-      <a href="#" class="pagination-link pagination-link-active">1</a>
-      <a href="#" class="pagination-link">2</a>
-      <a href="#" class="pagination-link">3</a>
+      {% if page_obj.has_previous %}
+        <a href="?page=1" class="pagination-link">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Previous</a>
+      {% endif %}
+
+      <span class="current-page">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Last &raquo;</a>
+      {% endif %}
     </nav>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
+
