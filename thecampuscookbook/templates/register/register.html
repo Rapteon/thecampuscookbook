@@ -4,7 +4,14 @@
   {% include 'global/headTag/head-tag.html' with title="The Campus Cookbook" %}
   <link rel="stylesheet" href="{% static 'css/register.css' %}">
   <body>
+    <!-- Page wrapper for sticky footer layout -->
+    <div class="page-wrapper">
+    
+      <!-- Navbar -->
     {% include 'global/navbar/navbar.html' %}
+
+    <!-- Main Content -->
+    <main class="main-content">
     <div class="register-container">
       <div class="register-card">
         <h2 class="register-title">
@@ -74,6 +81,7 @@
             </button>
           </form>
         {% endif %}
+
         <p class="login-link">
           Already have an account?
           <a href="{% url 'login' %}" class="login-button"
@@ -82,5 +90,15 @@
         </p>
       </div>
     </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    {% include 'global/footer/footer.html' %}
+  </footer>
+
+  </div>
+        
   </body>
+
 </html>
