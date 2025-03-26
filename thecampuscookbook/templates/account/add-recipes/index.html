@@ -11,9 +11,9 @@
   </div>
 
   <!-- Form Start -->
-  <form method="POST" action="" enctype="multipart/form-data" class="recipe-form">
+  <form method="POST" action="{% url 'add-recipe' %}" enctype="multipart/form-data" class="recipe-form">
     {% csrf_token %}
-
+    <p>{{recipe_form.non_field_errors}}</p>
     <!-- Top Section: Image & "Add to My Collections" -->
     <div class="form-top-section">
       <!-- Image Placeholder / Upload -->
@@ -25,46 +25,64 @@
           </svg>
         </div>
         <div class="image-upload-controls">
-          <label class="image-upload-label" for="image">Recipe Image</label>
-          <input type="file" name="image" id="image" class="image-upload-input"/>
+          <label class="image-upload-label" for="{{recipe_form.image.id_for_label}}">Recipe Image</label>
+          <input type="file" name="{{recipe_form.image.name}}" id="{{recipe_form.image.id_for_label}}" class="image-upload-input" accept="image/jpeg"/>
+          <p>{{recipe_form.image.errors}}</p>
         </div>
       </div>
     </div>
 
     <!-- Recipe Name -->
     <div class="form-field">
-      <label class="form-label" for="recipe_name">Recipe Name</label>
-      <input type="text" name="recipe_name" id="recipe_name" placeholder="e.g., Grandma's Apple Pie" class="form-input"/>
+      <label class="form-label" for="{{recipe_form.title.id_for_label}}">Recipe Name</label>
+      <input type="text" name="{{recipe_form.title.name}}" id="{{recipe_form.title.id_for_label}}" placeholder="e.g., Grandma's Apple Pie" class="form-input"/>
+      <p>{{recipe_form.title.errors}}</p>
     </div>
 
     <!-- Tags: Type & Origin -->
     <div class="form-row">
       <!-- Type -->
       <div class="form-field">
-        <label class="form-label" for="type">Type</label>
-        <input type="text" name="type" id="type" placeholder="e.g., Starter, Soup, Main, Dessert, Creative" class="form-input"/>
+        <label class="form-label" for="{{recipe_form.category_id.id_for_label}}">Type</label>
+        <!-- <input type="text" name="type" id="{{form.category_id.id_for_label}}" placeholder="e.g., Starter, Soup, Main, Dessert, Creative" class="form-input"/> -->
+        <select name="{{recipe_form.category_id.name}}" id="{{recipe_form.category_id.id_for_label}}" class="form-input">
+          {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+          </select>
+        <p>{{recipe_form.category_id.errors}}</p>
       </div>
       <!-- Origin -->
       <div class="form-field">
-        <label class="form-label" for="origin">Origin</label>
-        <input type="text" name="origin" id="origin" placeholder="e.g., American, French, Indian, Italian, etc." class="form-input"/>
+        <label class="form-label" for="{{recipe_form.origin.id_for_label}}">Origin</label>
+        <input type="text" name="{{recipe_form.origin.name}}" id="{{recipe_form.origin.id_for_label}}" placeholder="e.g., American, French, Indian, Italian, etc." class="form-input"/>
+        <p>{{recipe_form.origin.errors}}</p>
       </div>
     </div>
 
     <!-- Recipe Ingredients & Description -->
     <div class="form-field">
-      <label class="form-label" for="ingredients">Recipe Ingredients</label>
-      <textarea name="ingredients" id="ingredients" rows="6" placeholder="List ingredients..." class="form-textarea"></textarea>
+      <label class="form-label" for="{{recipe_form.ingredients.id_for_label}}">Recipe Ingredients</label>
+      <textarea name="{{recipe_form.ingredients.name}}" id="{{recipe_form.ingredients.id_for_label}}" rows="6" placeholder="List ingredients..." class="form-textarea"></textarea>
+      <p>{{recipe_form.ingredients.errors}}</p>
     </div>
 
     <div class="form-field">
-      <label class="form-label" for="description">Recipe Description</label>
-      <textarea name="description" id="description" rows="6" placeholder="Describe the recipe step by step..." class="form-textarea"></textarea>
+      <label class="form-label" for="{{recipe_form.description.id_for_label}}">Recipe Description</label>
+      <textarea name="{{recipe_form.description.name}}" id="{{recipe_form.description.id_for_label}}" rows="6" placeholder="Describe the recipe step by step..." class="form-textarea"></textarea>
+      <p>{{recipe_form.description.errors}}</p>
+    </div>
+
+    <!-- Recipe preparation time -->
+    <div class="form-field">
+      <label class="form-label" for="{{recipe_form.preparation_time.id_for_label}}">Preparation time</label>
+      <input type="text" name="{{recipe_form.preparation_time.name}}" id="{{recipe_form.preparation_time.id_for_label}}" placeholder="About 30min..." class="form-input"/>
+      <p>{{recipe_form.preparation_time.errors}}</p>
     </div>
 
     <!-- Submit Button -->
     <div class="form-submit">
-      <button type="submit" class="submit-button">
+      <button type="submit" name="submit" class="submit-button" value="Submit">
         Save Recipe
       </button>
     </div>
