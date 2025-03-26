@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 /* account.css */
 
 /* Profile Header */
@@ -694,7 +688,6 @@ header.bg-gray-200 {
     border-color: #007bff;
 }
 
-/* Profile Navigation Styles */
 .profile-nav-links {
     display: flex;
     gap: 12px;
@@ -741,7 +734,76 @@ header.bg-gray-200 {
 }
 
 
+.recipe-count {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 5px 0 15px;
+}
 
+.no-recipes-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.no-recipes-message p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.browse-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.browse-link:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+.recipe-card {
+    position: relative;
+}
+
+.recipe-card::after {
+    content: attr(data-recipe-id);
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 0.7rem;
+    color: #999;
+    opacity: 0.5;
+}
+
+
+.recipe-count {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 5px 0 15px;
+}
+
+.no-recipes-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px dashed #ddd;
+}
+
+.no-recipes-message p {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
 
 
 
