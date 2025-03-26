@@ -42,8 +42,7 @@
       {% if user.is_authenticated %}
       <a href="{% url 'logout' %}" class="nav-link">Logout</a>
       <a href="{% url 'my-recipes' %}">
-        <img src="https://www.gravatar.com/avatar/?d=mp&s=40" alt="Avatar Image" class="avatar-img">
-        <!-- src="{{ user.profile.avatar.url }}" - for later -->
+        <img src="{{user.userprofile.avatar.url}}" alt="Avatar Image" class="avatar-img">
       </a>
       {% else %}
       <a href="{% url 'login' %}" class="nav-link">Login</a>
