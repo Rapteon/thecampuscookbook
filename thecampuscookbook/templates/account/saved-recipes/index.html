@@ -25,7 +25,7 @@
   <!-- Recipes Grid -->
   <div class="recipes-grid">
     {% for saved_recipe in page_obj %}
-    <div class="recipe-card">
+    <div class="recipe-card" data-recipe-id="{{saved_recipe.id}}">
       <div class="recipe-image-container">
         <img src="{{ saved_recipe.recipe.image.url }}" alt="{{ saved_recipe.recipe.title }}" class="recipe-image"/>
         <div class="recipe-tag">{{ saved_recipe.recipe.category_id.name }}</div>
@@ -57,7 +57,7 @@
           {% for _ in range %}★{% endfor %}
         {% endwith %} -->
       </div>
-      <button class="remove-button">Remove</button>
+      <button class="remove-button" data-recipe-id="{{saved_recipe.id}}">Remove</button>
     </div>
     {% empty %}
     <div class="no-recipes-message">
@@ -90,3 +90,4 @@
   {% endif %}
 </div>
 {% endblock %}
+
