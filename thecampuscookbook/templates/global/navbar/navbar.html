@@ -52,4 +52,14 @@
       {% endif %}
     </div>
   </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="{% url 'home' %}" class="mobile-nav-item">Home</a>
+    <a href="{% url 'show_category' 'starter' %}" class="mobile-nav-item">Starter</a>
+    <a href="{% url 'show_category' 'soup' %}" class="mobile-nav-item">Soup</a>
+    <a href="{% url 'show_category' 'main' %}" class="mobile-nav-item">Main</a>
+    <a href="{% url 'show_category' 'dessert' %}" class="mobile-nav-item">Dessert</a>
+    <a href="{% url 'show_category' 'creative' %}" class="mobile-nav-item">Being Creative!</a>
+  </div>
 </nav>

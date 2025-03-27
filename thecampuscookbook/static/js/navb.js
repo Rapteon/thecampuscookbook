@@ -1,23 +1,21 @@
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(() => {
   const menuToggle = document.getElementById("menu-toggle");
   const mobileMenu = document.getElementById("mobile-menu");
 
-  // Toggle the menu when clicking the menu button
-  menuToggle.addEventListener("click", function () {
+  $('#menu-toggle').click(() => {
     mobileMenu.classList.toggle("active");
-  });
+  }
+  );
 
-  // Close menu when clicking a nav link
-  document.querySelectorAll(".mobile-nav-item").forEach(link => {
-    link.addEventListener("click", function () {
-      mobileMenu.classList.remove("active");
+  $('.mobile-nav-item').each((index, item) => {
+    $(item).click(function() {
+      $(mobileMenu).removeClass("active");
     });
   });
 
-  // Close the menu when clicking outside
-  document.addEventListener("click", function (event) {
+  $(document).click((event) => {
     if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
       mobileMenu.classList.remove("active");
     }
   });
-});
+})
