@@ -126,7 +126,7 @@ def remove_recipe(request):
                 )
                 print(saved_recipe)
                 saved_recipe.delete()
-                return JsonResponse({"status": "deleted"}, status=200)
+                return JsonResponse({"status": "removed"}, status=200)
 
             except Recipe.DoesNotExist:
                 return JsonResponse({"status": "not found"}, status=404)
@@ -162,6 +162,27 @@ def get_recipe(request):
                 return JsonResponse(
                     {"status": "found", "recipe": json_recipe}, status=200
                 )
+
+            except Recipe.DoesNotExist:
+                return JsonResponse({"status": "not found"}, status=404)
+        else:
+            return HttpResponseBadRequest("Does not accept GET requests.")
+    else:
+        print(request.headers)
+        return HttpResponseBadRequest("Only accepts AJAX requests.")
+
+
+def delete_recipe(request):
+    if is_ajax_request(request):
+        if request.method == "POST":
+            data = json.load(request)
+
+            recipe_id = int(data.get("recipeId"))
+
+            try:
+                recipe = Recipe.objects.get(pk=recipe_id)
+                recipe.delete()
+                return JsonResponse({"status": "deleted"}, status=200)
 
             except Recipe.DoesNotExist:
                 return JsonResponse({"status": "not found"}, status=404)
