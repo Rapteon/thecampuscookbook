@@ -5,4 +5,3 @@ from .models import Rating, Recipe, SavedRecipe
 admin.site.register(Rating)
 admin.site.register(Recipe)
 admin.site.register(SavedRecipe)
-

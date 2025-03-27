@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect, render
 from recipe.models import SavedRecipe
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max
@@ -11,63 +11,75 @@ from recipe.models import Recipe
 @login_required
 def saved_recipes(request):
     # Get the most recent save ID for each recipe
-    latest_ids = SavedRecipe.objects.filter(
-        user_profile=request.user.userprofile
-    ).values('recipe').annotate(
-        latest_id=Max('id')
-    ).values_list('latest_id', flat=True)
-    
+    latest_ids = (
+        SavedRecipe.objects.filter(user_profile=request.user.userprofile)
+        .values("recipe")
+        .annotate(latest_id=Max("id"))
+        .values_list("latest_id", flat=True)
+    )
+
     # Get complete SavedRecipe objects ordered by save time
-    saved_recipes_list = SavedRecipe.objects.filter(
-        id__in=latest_ids
-    ).select_related('recipe').order_by('-saved_at')
-    
+    saved_recipes_list = (
+        SavedRecipe.objects.filter(id__in=latest_ids)
+        .select_related("recipe")
+        .order_by("-saved_at")
+    )
+
     # Paginate the results
     paginator = Paginator(saved_recipes_list, 6)
-    page_number = request.GET.get('page')
-    
+    page_number = request.GET.get("page")
+
     try:
         page_obj = paginator.page(page_number)
     except PageNotAnInteger:
         page_obj = paginator.page(1)
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
-    
-    return render(request, "account/saved-recipes/index.html", {
-        'page_obj': page_obj,
-        'total_recipes': saved_recipes_list.count()
-    })
+
+    return render(
+        request,
+        "account/saved-recipes/index.html",
+        {"page_obj": page_obj, "total_recipes": saved_recipes_list.count()},
+    )
+
 
 @login_required
 def my_recipes(request):
     # Get the most recent save ID for each recipe
-    latest_ids = Recipe.objects.filter(
-        user_profile=request.user.userprofile
-    ).values('category_id').annotate(
-        latest_id=Max('id')
-    ).values_list('latest_id', flat=True)
-    
+    latest_ids = (
+        Recipe.objects.filter(user_profile=request.user.userprofile)
+        .values("category_id")
+        .annotate(latest_id=Max("id"))
+        .values_list("latest_id", flat=True)
+    )
+
     # Get complete SavedRecipe objects ordered by save time
-    recipes_list = Recipe.objects.filter(
-        id__in=latest_ids
-    ).select_related('category_id').order_by('-created_at')
+    recipes_list = (
+        Recipe.objects.filter(id__in=latest_ids)
+        .select_related("category_id")
+        .order_by("-created_at")
+    )
 
     # Paginate the results
     paginator = Paginator(recipes_list, 6)
-    page_number = request.GET.get('page')
-    
+    page_number = request.GET.get("page")
+
     try:
         page_obj = paginator.page(page_number)
     except PageNotAnInteger:
         page_obj = paginator.page(1)
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
-    
-    return render(request, "account/my-recipes/index.html", {
-        'page_obj': page_obj,
-        'total_recipes': recipes_list.count(),
-        "user_recipes": recipes_list
-    })
+
+    return render(
+        request,
+        "account/my-recipes/index.html",
+        {
+            "page_obj": page_obj,
+            "total_recipes": recipes_list.count(),
+            "user_recipes": recipes_list,
+        },
+    )
 
     # user_recipes = Recipe.objects.filter(user_profile=request.user.userprofile).order_by('-created_at')  # or any ordering field you use
     # return render(request, "account/my-recipes/index.html", {
@@ -101,4 +113,3 @@ def add_recipe(request):
 @login_required
 def settings(request):
     return render(request, "account/settings/index.html")
-
